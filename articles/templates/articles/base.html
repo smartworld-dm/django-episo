@@ -1,0 +1,51 @@
+{% load staticfiles %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  {% block title %}<title>Episoze | トップページ</title> {% endblock %}
+  <meta http-equiv="content-type" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="{% static 'img/favicon.ico' %}">
+  
+  <!-- Add additional CSS in static file -->
+  <link rel="stylesheet" href="{% static 'css/original_style.css' %}">
+
+  <!-- Add additional JS in static file -->
+  <script src="{% static 'js/core.js' %}"></script>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59c11ecc8d910be6"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+      <div class="page-header">
+          {% block header %}
+          {% endblock %}
+      </div>
+
+      <div class="sidebar">
+          {% block sidebar %}
+          {% endblock %}
+      </div>
+
+      <div class="container">
+          <div class="row">
+              <div class="col-md-8">
+              {% block content %}
+              {% endblock %}
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <div>
+      {% block footer %}
+      {% endblock %}
+  </div>
+</body>
+</html>

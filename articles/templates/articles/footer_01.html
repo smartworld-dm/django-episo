@@ -1,0 +1,43 @@
+{% load static %}
+
+<footer class="footer__wrapper">
+
+    <div class="footer">
+
+        <div class="button__wrap footer__button_wrap js__up-to">
+            <div class="button button_size-middle button_bg-white button_full-width">ページトップへ</div>
+        </div>
+
+        <nav class="footer__nav">
+            <a href="terms-service.html" class="footer__link">利用規約</a>
+            <a href="privacy.html" class="footer__link">プライバシーポリシー</a>
+            <a href="" class="footer__link">運営会社</a>
+        </nav>
+
+        <address class="footer__address">
+            <span class="footer__address_text">【お問い合わせ】</span>
+            <a href="mailto:info@openkidsbase.co.jp" class="footer__address_link">info@openkidsbase.co.jp</a>
+            <p class="footer__address_desc">※取材のご依頼等もお待ちしております。</p>
+        </address>
+
+        <a href="index.html" class="footer__logo">
+            <img src={% static 'imgs/common/logo.svg' %} alt="" class="footer__logo_view">
+        </a>
+
+        <div class="footer__social_list">
+            <a href="" class="footer__social_link social_facebook">
+                <img class="footer__social_view" src={% static 'imgs/icons/facebook.svg' %} alt="">
+            </a>
+            <a href="" class="footer__social_link social_twitter">
+                <img class="footer__social_view" src={% static 'imgs/icons/twitter.svg' %} alt="">
+            </a>
+            <a href="" class="footer__social_link social_insta">
+                <img class="footer__social_view" src={% static 'imgs/icons/instagram.svg' %} alt="">
+            </a>
+        </div>
+
+        <div class="footer__copyrights">©️2018 Openkidsbase Inc, all rights reserved</div>
+
+    </div>
+
+</footer>

@@ -1,0 +1,42 @@
+{% load static %}
+
+<header class="header__wrapper">
+
+    <div class="header">
+
+        <div class="nav__mobile-toggle js__mobile-toggle">
+            <div class="nav__mobile-toggle_icon"></div>
+        </div>
+
+        <a class="header__logo" href="index.html">
+            <img class="header__logo-view" src={% static 'imgs/common/logo.svg' %}/>
+        </a>
+
+        <div class="header__right">
+
+            <nav class="nav__wrapper">
+
+                <ul class="nav">
+                    <li class="nav__item nav__item_mobile-only"><a class="nav__item_link" href="index.html">トップ</a>
+                    </li>
+                    <li class="nav__item current-menu-item"><a class="nav__item_link" href="episode-list.html">エピソード一覧</a>
+                    </li>
+                    <li class="nav__item"><a class="nav__item_link" href="brand-list.html">ブランド一覧</a></li>
+                    <li class="nav__item"><a class="nav__item_link" href="services.html">What’s Episoze?</a></li>
+                    <li class="nav__item nav__item_mobile-only"><a class="nav__item_link"
+                                                                   href="contact.html">お問い合わせ</a></li>
+                    <li class="nav__item nav__item_mobile-only"><a class="nav__item_link" href="terms-service.html">利用規約</a>
+                    </li>
+                    <li class="nav__item nav__item_mobile-only"><a class="nav__item_link" href="privacy.html">プライバシーポリシー</a>
+                    </li>
+                </ul>
+
+            </nav>
+
+            <a href="search.html" class="header__search-button"></a>
+
+        </div>
+
+    </div>
+
+</header>
