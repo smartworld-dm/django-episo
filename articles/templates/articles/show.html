@@ -1,0 +1,115 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block header %}
+	{% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+	<main class="content ">
+        
+        <article class="article">
+
+            <figure class="article__figure">
+                <img src={% static article.cover_image.url %} alt="" class="article__view">
+                <figcaption class="article__figure_desc">
+                    <h2 class="article__figure_headline">{{ article.member_name }}</h2>
+                    <p class="article__figure_headline_desc">
+                    	{{ article.member_title }} | {{ article.brand.name }}
+                    </p>
+                </figcaption>
+            </figure>
+
+            <section class="article__content">
+
+                <div class="article__info">
+
+                    <div class="article__tags">
+                        <a href="#" class="button article__tags_button">{{ article.category }}</a>
+                    </div>
+
+                    <div class="article__date">{{ article.creation_date|date:"Y/n/j" }}</div>
+
+                </div>
+
+                <h1 class="article__headline">{{ article.title }}</h1>
+
+                <div class="article__brand">
+                    <figure class="brand-list__figure">
+                        <img src={% static article.brand.logo_image.url %} alt="" class="brand-list__view">
+                    </figure>
+                    <div class="brand-list__info">
+                        <h4 class="brand-list__brand-name">{{ article.brand.name }}</h4>
+                        <p class="brand-list__desc">{{ article.brand.small_introduction }}</p>
+                    </div>
+                </div>
+
+                <div class="article__share">
+                    <div class="addthis_inline_share_toolbox"></div>
+                </div>
+
+                <div class="wp__typo">
+                    {{ article.content }}
+                    <div class="button__wrap button__wrap_column button__wrap_align-center article__content_button_wrap">
+
+                        {% for key, value in article.free_links.items %}
+                            <a href={{ value }} target="_blank" class="button button_size-big button_invert article__content_button">{{key}}</a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="article__additional">
+
+                <div class="article__brand_details">
+
+                    <figure class="article__brand_details_figure">
+                        <img src={% static article.brand.logo_image.url %} alt="" class="brand-list__view">
+                    </figure>
+
+                    <h4 class="article__brand_details_brand-name">{{ article.brand.name }}</h4>
+                    <div class="article__brand_details_desc">{{ article.brand.introduction }}
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="article__relatives">
+
+                <h5 class="article__relatives_headline">Minimalのエピソード</h5>
+
+                <div class="espisoze-list__tile tile">
+
+                	{% for article in same_brand_articles %}
+                    <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
+                        <figure class="episode-list__figure">
+                            <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                            <figcaption class="episode-list__figure_desc">
+                                <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
+                                <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
+                            </figcaption>
+                        </figure>
+                        <article class="episode-list__desc">
+                            <h2 class="episode-list__headline">{{ article.title }}</h2>
+                            <div class="episode-list__info">
+                                <p class="episode-list__info_name">{{ article.brand.name }}</p>
+                                <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                            </div>
+                        </article>
+                    </a>
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        </article>
+
+    </main>
+{% endblock %}
+
+{% block footer %}
+	{% include './footer_01.html' %}
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block header %}
+	{% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+    <main class="content ">
+        
+        <section class="main-carousel__wrapper">
+
+            <div class="main-carousel js__carousel-main">
+
+            	{% for article in articles %}
+	                <a href="/articles/{{ article.id }}" class="main-carousel__item">
+	                    <figure class="main-carousel__figure">
+	                        <img src={% static article.cover_image.url %} alt="" class="main-carousel__view" style="width: 100%;">
+	                    </figure>
+	                    <div class="main-carousel__desc">
+	                        <p class="main-carousel__headline_desc">
+	                        	{{ article.member_name }}
+	                        　	{{ article.member_title }}
+	                        	| 
+	                        	{{ article.brand.name }}
+	                    	</p>
+	                        <h2 class="main-carousel__headline">{{ article.title }}</h2>
+	                    </div>
+	                </a>
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+        <section class="episode-list main__episode-list">
+
+            <div class="espisoze-list__tile tile">
+
+            	{% for article in top6_articles %}
+                <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
+                    <figure class="episode-list__figure">
+                        <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                        <figcaption class="episode-list__figure_desc">
+                            <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
+                            <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
+                        </figcaption>
+                    </figure>
+                    <article class="episode-list__desc">
+                        <h2 class="episode-list__headline">{{ article.title }}</h2>
+                        <div class="episode-list__info">
+                            <p class="episode-list__info_name">{{ article.brand.name }}</p>
+                            <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                        </div>
+                    </article>
+                </a>
+                {% endfor %}
+
+            </div>
+
+            <div class="button__wrap button__wrap_align-center main__button_episode-list">
+                <a href="/articles/" class="button button_size-normal">エピソード一覧</a>
+            </div>
+
+        </section>
+
+        <section class="brand-list main__brand-list">
+
+            <h3 class="main__brand-list_headline">エピソード掲載ブランド</h3>
+
+            <div class="brand-list__tile tile">
+
+            	{% for brand in top6_brands %}
+                <a href="/brands/{{ brand.id }}" class="brand-list__item tile__item">
+                    <figure class="brand-list__figure">
+                        <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
+                    </figure>
+                    <div class="brand-list__info">
+                        <h4 class="brand-list__brand-name">{{ brand.name }}</h4>
+                        <p class="brand-list__desc">{{ brand.short_introduction }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+
+            </div>
+
+            <div class="button__wrap button__wrap_align-center main__button_brand-list">
+                <a href="/brands/" class="button button_size-normal">ブランド一覧</a>
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}
+
+{% block footer %}
+	{% include './footer_01.html' %}
+{% endblock %}
