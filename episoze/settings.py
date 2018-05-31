@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'brands',
     'landing',
     'episodes',
+    'privacy',
+    'terms',
+    'search',
+    'contact',
 ]
 
 MIDDLEWARE = [

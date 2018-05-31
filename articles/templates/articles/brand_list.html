@@ -1,0 +1,68 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze | Brands</title>{% endblock %}
+
+{% block header %}
+    {% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+	<main class="content ">
+	        
+	    <section class="brand-list__wrapper">
+
+	        <div class="brand-list">
+
+	            <h1 class="brand-list__headline">ブランド一覧</h1>
+
+	            <div class="brand-list__tile tile">
+
+	            	{% for brand in brands %}
+		                <a href="/brands/{{ brand.name }}" class="brand-list__item tile__item">
+		                    <figure class="brand-list__figure">
+		                        <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
+		                    </figure>
+		                    <div class="brand-list__info">
+		                        <h4 class="brand-list__brand-name">{{ brand.name }}</h4>
+		                        <p class="brand-list__desc">{{ brand.short_introduction }}</p>
+		                    </div>
+		                </a>
+	                {% endfor %}
+
+	            </div>
+
+	            <div class="pagination episode-list__pagination">
+                    {% if brands.has_previous %}
+                        <a href="?page={{ brands.previous_page_number }}" class="pagination__arrow_left"></a>
+                    {% else %}
+                        <a class="pagination__arrow_left inactive"></a>
+                    {% endif %}
+
+                    {% for i in page_cnt %}
+                        <a href="/brands/?page={{i|add:1}}" class="pagination__link {% if brands.number == i|add:1 %} pagination__current {% endif %}">{{ i|add:1 }}</a>
+                    {% endfor %}
+                   
+                    {% if brands.has_next %}
+                        <a href="?page={{ brands.next_page_number }}" class="pagination__arrow_right"></a>
+                    {% else %}
+                        <a class="pagination__arrow_right inactive"></a>
+                    {% endif %}
+                </div>
+
+	            <div class="pagination_mobile brand-list__pagination_mobile">
+	                <span class="pagination_mobile__arrow_left"></span>
+	                <div class="pagination_mobile__current">1/12</div>
+	                <a href="#" class="pagination_mobile__arrow_right"></a>
+	            </div>
+
+	        </div>
+
+	    </section>
+
+	</main>
+{% endblock %}
+
+{% block footer %}
+    {% include './footer_01.html' %}
+{% endblock %}

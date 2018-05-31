@@ -59,7 +59,7 @@
             </div>
 
             <div class="button__wrap button__wrap_align-center main__button_episode-list">
-                <a href="/articles/" class="button button_size-normal">エピソード一覧</a>
+                <a href="/episodes/" class="button button_size-normal">エピソード一覧</a>
             </div>
 
         </section>
@@ -71,15 +71,15 @@
             <div class="brand-list__tile tile">
 
             	{% for brand in top6_brands %}
-                <a href="/brands/{{ brand.name }}" class="brand-list__item tile__item">
-                    <figure class="brand-list__figure">
-                        <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
-                    </figure>
-                    <div class="brand-list__info">
-                        <h4 class="brand-list__brand-name">{{ brand.name }}</h4>
-                        <p class="brand-list__desc">{{ brand.short_introduction }}</p>
-                    </div>
-                </a>
+                    <a href="/brands/{{ brand.name }}" class="brand-list__item tile__item">
+                        <figure class="brand-list__figure">
+                            <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
+                        </figure>
+                        <div class="brand-list__info">
+                            <h4 class="brand-list__brand-name">{{ brand.name }}</h4>
+                            <p class="brand-list__desc">{{ brand.short_introduction }}</p>
+                        </div>
+                    </a>
                 {% endfor %}
 
             </div>

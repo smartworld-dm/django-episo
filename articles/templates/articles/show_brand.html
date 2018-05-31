@@ -21,14 +21,12 @@
             <section class="brand__info">
 
                 <div class="brand__company-details">
-
                     <figure class="brand__company-details_figure">
                         <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
                     </figure>
 
                     <h4 class="article__brand_details_brand-name">{{ brand.name }}</h4>
-                    <div class="article__brand_details_desc">{{ brand.introduction }}
-                    </div>
+                    <div class="article__brand_details_desc">{{ brand.introduction }}</div>
                 </div>
 
                 <div class="social-box brand__social-box">
@@ -36,15 +34,15 @@
 
                     <div class="social-box__list">
                     	{% if brand.facebook_url and brand.facebook_url.strip %}
-                        <a href="" class="social-box__link"><img class="social-box__view"
+                            <a href="" class="social-box__link"><img class="social-box__view"
                                                                  src={% static 'imgs/icons/facebook.svg' %} alt=""></a>
 						{% endif %}
 						{% if brand.twitter_url and brand.twitter_url.strip %}
-                        <a href="" class="social-box__link"><img class="social-box__view"
+                            <a href="" class="social-box__link"><img class="social-box__view"
                                                                  src={% static 'imgs/icons/twitter.svg' %} alt=""></a>
                         {% endif %}
                         {% if brand.instagram_url and brand.instagram_url.strip %}
-                        <a href="" class="social-box__link"><img class="social-box__view"
+                            <a href="" class="social-box__link"><img class="social-box__view"
                                                                  src={% static 'imgs/icons/instagram.svg' %} alt=""></a>
                         {% endif %}
                     </div>
@@ -62,7 +60,7 @@
                     <div class="button__wrap button__wrap_column button__wrap_align-center article__content_button_wrap">
 
                     	{% for key, value in brand.free_links.items %}
-                        <a href={{ value }} target="_blank" class="button button_size-big button_invert article__content_button">{{key}}</a>
+                            <a href={{ value }} target="_blank" class="button button_size-big button_invert article__content_button">{{key}}</a>
                         {% endfor %}
 
                     </div>

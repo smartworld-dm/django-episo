@@ -1,0 +1,13 @@
+a.inactive {
+	opacity: 0.3 !important;
+	cursor: default !important;
+}
+
+a.pagination__arrow_right {
+	margin-left: 18px !important;
+}
+
+a.pagination__current {
+	opacity: 0.5;
+	cursor: default;
+}

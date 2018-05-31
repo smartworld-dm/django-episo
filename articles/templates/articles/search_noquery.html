@@ -1,0 +1,28 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze | 検索</title>{% endblock %}
+
+{% block header %}
+    {% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+	<main class="content ">
+        
+        <section class="search">
+
+            <form action="" class="search-form">
+
+                <label><input name="q" type="text" class="search-form__field" required placeholder="キーワードで検索"></label>
+
+                <button type="submit" class="search-form__button"></button>
+
+            </form>
+
+            <p class="search__no-results">該当記事がありません。</p>
+
+        </section>
+
+    </main>
+{% endblock %}

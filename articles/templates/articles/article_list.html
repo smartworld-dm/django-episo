@@ -1,0 +1,75 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze | Articles</title>{% endblock %}
+
+{% block header %}
+    {% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+    <main class="content ">
+        
+        <section class="episode-list__wrapper">
+
+            <div class="episode-list">
+
+                <h1 class="brand-list__headline">エピソード一覧</h1>
+
+                <div class="espisoze-list__tile tile">
+
+                    {% for article in articles %}
+                        <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
+                            <figure class="episode-list__figure">
+                                <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                                <figcaption class="episode-list__figure_desc">
+                                    <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
+                                    <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
+                                </figcaption>
+                            </figure>
+                            <article class="episode-list__desc">
+                                <h2 class="episode-list__headline">{{ article.title }}</h2>
+                                <div class="episode-list__info">
+                                    <p class="episode-list__info_name">{{ article.brand.name }}</p>
+                                    <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                                </div>
+                            </article>
+                        </a>
+                    {% endfor %}
+
+                </div>
+
+                <div class="pagination episode-list__pagination">
+                    {% if articles.has_previous %}
+                        <a href="?page={{ articles.previous_page_number }}" class="pagination__arrow_left"></a>
+                    {% else %}
+                        <a class="pagination__arrow_left inactive"></a>
+                    {% endif %}
+
+                    {% for i in page_cnt %}
+                        <a href="/episodes/?page={{i|add:1}}" class="pagination__link {% if articles.number == i|add:1 %} pagination__current {% endif %}">{{ i|add:1 }}</a>
+                    {% endfor %}
+                   
+                    {% if articles.has_next %}
+                        <a href="?page={{ articles.next_page_number }}" class="pagination__arrow_right"></a>
+                    {% else %}
+                        <a class="pagination__arrow_right inactive"></a>
+                    {% endif %}
+                </div>
+
+                <div class="pagination_mobile episode-list__pagination_mobile">
+                    <span class="pagination_mobile__arrow_left"></span>
+                    <div class="pagination_mobile__current">1/12</div>
+                    <a href="#" class="pagination_mobile__arrow_right"></a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}
+
+{% block footer %}
+    {% include './footer_01.html' %}
+{% endblock %}

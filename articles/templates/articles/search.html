@@ -1,0 +1,55 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze | 検索</title>{% endblock %}
+
+{% block header %}
+    {% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+	<main class="content ">
+        
+        <section class="search">
+
+            <form action="" class="search-form">
+
+                <label><input name="q" type="text" class="search-form__field" required placeholder="キーワードで検索"></label>
+
+                <button type="submit" class="search-form__button"></button>
+
+            </form>
+
+            <div class="search__link-box">
+
+                <p class="search__caption">カテゴリから検索</p>
+
+                <div class="search__link-list">
+                    <a href="" class="search__link-item">趣味・ホビー</a>
+                    <a href="" class="search__link-item">ファッション</a>
+                    <a href="" class="search__link-item">インテリア</a>
+                    <a href="" class="search__link-item">食品</a>
+                </div>
+
+            </div>
+
+            <div class="search__link-box">
+
+                <p class="search__caption">地域から検索</p>
+
+                <div class="search__link-list">
+                    <a href="" class="search__link-item">北海道・東北</a>
+                    <a href="" class="search__link-item">関東</a>
+                    <a href="" class="search__link-item">関西</a>
+                    <a href="" class="search__link-item">中部</a>
+                    <a href="" class="search__link-item">中国・四国</a>
+                    <a href="" class="search__link-item">九州</a>
+                    <a href="" class="search__link-item">海外</a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}
