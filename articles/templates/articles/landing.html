@@ -71,7 +71,7 @@
             <div class="brand-list__tile tile">
 
             	{% for brand in top6_brands %}
-                <a href="/brands/{{ brand.id }}" class="brand-list__item tile__item">
+                <a href="/brands/{{ brand.name }}" class="brand-list__item tile__item">
                     <figure class="brand-list__figure">
                         <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
                     </figure>

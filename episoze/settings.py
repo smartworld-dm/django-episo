@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'articles',
+    'brands',
+    'landing',
+    'episodes',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +123,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
+    os.path.join(BASE_DIR, ""),
 ]
 
 STATIC_URL = '/static/'

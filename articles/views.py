@@ -8,6 +8,9 @@ from articles.models import Article, Brand
 
 logger = logging.getLogger(__name__)
 
+def index(request):
+	return render(request, 'articles/show_brand.html', {"a":"a"})
+
 def landing(request):
 	articles = Article.objects.filter(is_featured=True, is_published=True)
 	top6_articles = Article.objects.filter(is_published=True).order_by('-creation_date')
@@ -19,5 +22,11 @@ def show(request, id):
 	article = Article.objects.get(pk=id)
 	same_brand_articles = Article.objects.filter(is_published=True, brand = article.brand).exclude(pk=article.id).order_by('-creation_date')[:2]
 	context = {'article': article, 'same_brand_articles': same_brand_articles}
-	logger.error(article.free_links.values())
 	return render(request, 'articles/show.html', context)
+
+def show_brand(request, name):
+	brand = Brand.objects.filter(name=name).first()
+	top3_articles = Article.objects.filter(is_published=True, brand=brand).order_by('-creation_date')[:3]
+	logger.error(top3_articles)
+	context = {'brand': brand, 'top3_articles': top3_articles}
+	return render(request, 'articles/show_brand.html', context)

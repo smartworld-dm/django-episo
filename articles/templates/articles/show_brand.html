@@ -1,0 +1,155 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze | {{ brand.title }}</title>{% endblock %}
+{% block og_title %}<meta property="og:title" content="{{ brand.name }}">{% endblock %}
+{% block og_image %}<meta property="og:title" content="{{ brand.logo_image }}">{% endblock %}
+
+{% block header %}
+	{% include './header_01.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="content ">
+        
+        <article class="brand article">
+
+            <figure class="brand__figure">
+                <img src={% static brand.cover_image.url %} alt="" class="article__view">
+            </figure>
+
+            <section class="brand__info">
+
+                <div class="brand__company-details">
+
+                    <figure class="brand__company-details_figure">
+                        <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
+                    </figure>
+
+                    <h4 class="article__brand_details_brand-name">{{ brand.name }}</h4>
+                    <div class="article__brand_details_desc">{{ brand.introduction }}
+                    </div>
+                </div>
+
+                <div class="social-box brand__social-box">
+                    <p class="brand__social-box_headline">公式アカウントをフォロー</p>
+
+                    <div class="social-box__list">
+                    	{% if brand.facebook_url and brand.facebook_url.strip %}
+                        <a href="" class="social-box__link"><img class="social-box__view"
+                                                                 src={% static 'imgs/icons/facebook.svg' %} alt=""></a>
+						{% endif %}
+						{% if brand.twitter_url and brand.twitter_url.strip %}
+                        <a href="" class="social-box__link"><img class="social-box__view"
+                                                                 src={% static 'imgs/icons/twitter.svg' %} alt=""></a>
+                        {% endif %}
+                        {% if brand.instagram_url and brand.instagram_url.strip %}
+                        <a href="" class="social-box__link"><img class="social-box__view"
+                                                                 src={% static 'imgs/icons/instagram.svg' %} alt=""></a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="article__content">
+
+                <h3 class="brand__content_headline">About</h3>
+
+                <div class="wp__typo">
+                    {{ brand.company_introduction }}
+
+                    <div class="button__wrap button__wrap_column button__wrap_align-center article__content_button_wrap">
+
+                    	{% for key, value in brand.free_links.items %}
+                        <a href={{ value }} target="_blank" class="button button_size-big button_invert article__content_button">{{key}}</a>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="brand__relatives">
+
+                <h5 class="brand__relatives_headline">Minimalのエピソード</h5>
+
+                <div class="espisoze-list__tile tile brand__relatives_tile">
+
+                    {% for article in top3_articles %}
+                        <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item brand__relatives_tile_item">
+                            <figure class="episode-list__figure">
+                                <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                                <figcaption class="episode-list__figure_desc">
+                                    <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
+                                    <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
+                                </figcaption>
+                            </figure>
+                            <article class="episode-list__desc brand__relatives_desc">
+                                <h2 class="episode-list__headline brand__relatives_desc_headline">{{ article.title }}</h2>
+                                <div class="episode-list__info">
+                                    <p class="episode-list__info_name">{{ article.brand.name }}</p>
+                                    <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                                </div>
+                            </article>
+                        </a>
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+            <section class="about-box brand__about-box">
+
+                <h3 class="about-box__headline">会社情報</h3>
+
+                <table class="about-box__table">
+
+                    <tr class="about-box__tr">
+                        <td class="about-box__td">会社名</td>
+                        <td class="about-box__td">
+                            <p>{{ brand.company_name }}</p>
+                        </td>
+                    </tr>
+                    <tr class="about-box__tr">
+                        <td class="about-box__td">本社</td>
+                        <td class="about-box__td">
+                            <p>{{ brand.company_address|date:"Y年n月j日" }}</p>
+                        </td>
+                    </tr>
+                    <tr class="about-box__tr">
+                        <td class="about-box__td">創業</td>
+                        <td class="about-box__td">
+                            <p>{{ brand.company_founding_date }}</p>
+                        </td>
+                    </tr>
+                    <tr class="about-box__tr">
+                        <td class="about-box__td">営業所</td>
+                        <td class="about-box__td">
+                            <p>{{ brand.company_sales_offices }}</p>
+                        </td>
+                    </tr>
+                    <tr class="about-box__tr">
+                        <td class="about-box__td">代表</td>
+                        <td class="about-box__td">
+                            <p>{{ brand.company_representative }}</p>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <div class="button__wrap button__wrap_align-center about-box__button_wrap">
+                    <a href='{{brand.company_website}}' class="button button_size-big button__bg-white">公式サイトをみる</a>
+                </div>
+
+            </section>
+
+        </article>
+
+    </main>
+{% endblock %}
+
+{% block footer %}
+	{% include './footer_01.html' %}
+{% endblock %}
