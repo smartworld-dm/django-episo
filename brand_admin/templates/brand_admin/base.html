@@ -48,10 +48,21 @@
   <script src="{% static 'js/wow.min.js' %}"></script>
   <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
   <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
-
-  <!-- App js -->
   <script src="{% static 'js/jquery.core.js' %}"></script>
   <script src="{% static 'js/jquery.app.js' %}"></script>
+
+  <!--form wysiwig js-->
+  <script src="{% static 'js/plugins/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'js/plugins/select2/dist/js/select2.min.js' %}"></script>
+
+  <!-- datetimepicker -->
+  <script src="{% static 'js/plugins/moment/min/moment.min.js' %}"></script>
+  <script src="{% static 'js/plugins/bootstratp-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+
+  <!-- App js -->
   <script src="{% static 'js/app.js' %}"></script>
+
+  {% block script %}
+  {% endblock %}
 </body>
 </html>

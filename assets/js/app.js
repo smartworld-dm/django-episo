@@ -41,3 +41,17 @@ $(document).on("click", ".dispublish", function() {
         }
       });
 });
+
+$('.cover-image > input[type=file]').change(function (e) {
+    var t = e.target || window.event.srcElement;
+    var file = t.files[0];
+    var reader  = new FileReader();
+
+    reader.addEventListener("load", function () {
+      document.querySelector('.cover-image > img').src = reader.result;
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+});

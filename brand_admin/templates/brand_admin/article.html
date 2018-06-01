@@ -1,0 +1,198 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze</title>{% endblock %}
+
+{% block header %}
+    {% include './header_02.html' %}
+{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">新規投稿</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <form role="form" action="/brand-admin/save_article/" method="post" enctype="multipart/form-data">
+                	{% csrf_token %}
+
+                    <div class="form-group">
+                        <label>記事タイトル</label>
+                        <input type="text" name="title" class="form-control">
+                    </div>
+                    <div class="form-group cover-image">
+                        <label>キャプチャー画像 (1200 x 675 px)</label>
+                        <input type="file" name="cover-image">
+                        <img src="{% static 'images/empty-image.png' %}" alt="empty-image" style="width: 300px" />
+                    </div>
+
+
+                    <div class="form-group">
+                            <label class="">メンバー情報</label><br>
+                            <input type="text" name="member-name" placeholder="メンバー名" class="form-control" style="width:35%; display: inline-block;">
+                            <input type="text" name="member-title" placeholder="肩書き" class="form-control" style="width:35%; display: inline-block;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">投稿属性</label>
+                        <select name="attribute" class="form-control select" style="width:30%;clear:both;">
+                            <option>選択する</option>
+                            <option value="イベント">イベント</option>
+                            <option value="メンバー">メンバー</option>
+                            <option value="ストーリー">ストーリー</option>
+                            <option value="商品">商品</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">地域選択</label>
+                        <select name="region" class="form-control select" style="width:30%;clear:both;">
+                            <option>選択する</option>
+                            <option value="北海道">北海道</option>
+                            <option value="東北">東北</option>
+                            <option value="関東">関東</option>
+                            <option value="中部">中部</option>
+                            <option value="近畿">近畿</option>
+                            <option value="中国・四国">中国・四国</option>
+                            <option value="九州">九州</option>
+                            <option value="海外">海外</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">カテゴリー選択</label>
+                        <select name="category" class="form-control select" style="width:30%;clear:both;">
+                            <option>選択する</option>
+                            <option value="fashion">ファッション</option>
+                            <option value="食">食</option>
+                            <option value="工芸品">工芸品</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">投稿日時</label>
+                        <div class="input-group" style="width:30%;clear:both;">
+                            <input type="text" name="creation_date" class="form-control" placeholder="年月日 時分" id="datepicker" >
+                            <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>投稿内容</label>
+                        <textarea id="js-article-content" name="content" class="form-control" rows="5"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                            <label class="">リンク１</label><br>
+                            <input type="text" name="free-link-1-anchor" placeholder="テキスト" class="form-control" style="width:35%;display: inline-block;">
+                            <input type="text" name="free-link-1-url" placeholder="URL" class="form-control" style="width:35%; display: inline-block;">
+                    </div>
+
+                    <div class="form-group">
+                            <label class="">リンク２</label><br>
+                            <input type="text" name="free-link-2-anchor" placeholder="テキスト" class="form-control" style="width:35%;display: inline-block;">
+                            <input type="text" name="free-link-2-url" placeholder="URL" class="form-control" style="width:35%; display: inline-block;">
+                    </div>
+                    <div class="form-group">
+                            <label class="">リンク３</label><br>
+                            <input type="text" name="free-link-3-anchor" placeholder="テキスト" class="form-control" style="width:35%;display: inline-block;">
+                            <input type="text" name="free-link-3-url" placeholder="URL" class="form-control" style="width:35%; display: inline-block;">
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary waves-effect btn-lg w-lg waves-light ">記事を投稿する</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+	{% include './footer_02.html' %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if($("#js-article-content").length > 0){
+            tinymce.init({
+                selector: "textarea#js-article-content",
+                theme: "modern",
+                height:300,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent  | print preview media fullpage | forecolor backcolor emoticons | imageupload",
+                setup: function(editor){
+                    initImageUpload(editor);
+                },
+                style_formats: [
+                    {title: 'Bold text', inline: 'b'},
+                    {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                    {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                    {title: 'Example 1', inline: 'span', classes: 'example1'},
+                    {title: 'Example 2', inline: 'span', classes: 'example2'},
+                    {title: 'Table styles'},
+                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                ]
+            });
+        }
+
+       /* $(".select2").select2();
+
+        $(".select2-limiting").select2({
+          maximumSelectionLength: 2
+        });*/
+
+        $('#datepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm'
+        });
+
+        function initImageUpload(editor) {
+            var inputFile = $('<input id="tinymce-uploader" type="file" name="pic" accept="image/*" style="display:none">');
+            $(editor.getElement()).parent().append(inputFile);
+
+            editor.addButton('imageupload', {
+                text: '',
+                icon: 'image',
+                onclick: function(e) { // when toolbar button is clicked, open file select modal
+                    inputFile.trigger('click');
+                }
+            });
+
+            inputFile.on("change", function(e){
+                uploadFile($(this), editor);
+            });
+        }
+
+        function uploadFile(inputFile, editor) {
+            var input = inputFile.get(0);
+            var data = new FormData();
+            data.append('image', input.files[0]);
+            data.append('csrfmiddlewaretoken', $( "input[name='csrfmiddlewaretoken']" ).val())
+
+            $.ajax({
+                url: '/brand-admin/file_upload',
+                type: 'POST',
+                data: data,
+                processData: false, // Don't process the files
+                contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+                success: function(data, textStatus, jqXHR) {
+                    editor.insertContent('<img class="content-img" src="/media/uploads/' + data.path + '"/>');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if(jqXHR.responseText) {
+                        errors = JSON.parse(jqXHR.responseText).errors;
+                        alert('Error uploading image: ' + errors.join(", ") + '. Make sure the file is an image and has extension jpg/jpeg/png.');
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
