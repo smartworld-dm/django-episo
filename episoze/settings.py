@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'terms',
     'search',
     'contact',
+    'brand_admin',
 ]
 
 MIDDLEWARE = [

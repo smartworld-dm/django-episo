@@ -1,0 +1,38 @@
+
+.right-menu{
+  text-align: right;
+  line-height: 60px;
+}
+.right-menu a {
+    color: white;
+    margin-left: 20px;
+}
+.right-menu a:hover {
+    color: #71b6f9;
+}
+
+.wrapper {
+    padding-top: 70px;
+}
+.m-t-3 {
+    margin-top: 3px !important;
+}
+.l-h-40{
+    line-height: 40px;
+}
+
+#topnav .topbar-main {
+  background-color: #FB9585 !important;
+}
+
+.wrapper-page .logo {
+    color: #FB9585 !important
+}
+
+.form-group {
+    min-height: 40px;
+}
+
+.preview-image {
+    margin-top: 5px;
+}

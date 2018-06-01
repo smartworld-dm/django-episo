@@ -15,15 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('landing.urls')),
-    path('articles/', include('articles.urls')),
-    path('brands/', include('brands.urls')),
-    path('episodes/', include('episodes.urls')),
-    path('terms/', include('terms.urls')),
-    path('privacy/', include('privacy.urls')),
-    path('contact/', include('contact.urls')),
-    path('search/', include('search.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', include('landing.urls')),
+    url(r'^articles/', include('articles.urls')),
+    url(r'^brands/', include('brands.urls')),
+    url(r'^episodes/', include('episodes.urls')),
+    url(r'^terms/', include('terms.urls')),
+    url(r'^privacy/', include('privacy.urls')),
+    url(r'^contact/', include('contact.urls')),
+    url(r'^search/', include('search.urls')),
+    url(r'^brand-admin/', include('brand_admin.urls')),
 ]

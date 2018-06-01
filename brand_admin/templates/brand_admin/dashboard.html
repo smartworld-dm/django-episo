@@ -1,0 +1,58 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}<title>Episoze</title>{% endblock %}
+
+{% block header %}
+    {% include './header_02.html' %}
+{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+    	<div class="container">
+
+		    <!-- Page-Title -->
+		    <div class="row">
+		        <div class="col-sm-12">
+		            <h4 class="page-title">ダッシュボード</h4>
+		        </div>
+		    </div>
+
+		    <div class="row text-center">
+		        <a href="create_post.html" class="btn btn-primary waves-effect btn-lg w-lg waves-light">
+		            <i class="fa fa-plus"></i>　記事を投稿する
+		        </a>
+		    </div>
+
+		    <div class="row m-t-30">
+		    	{% csrf_token %}
+		        <table class="table table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th>記事一覧</th>
+                            <th>アクション</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	{% for article in articles %}
+	                    	<tr>
+	                            <td><a href="" class="l-h-40">{{ article.title }}</a></td>
+	                            <td>
+                            		{% if article.is_published %}
+                            			<button class="btn btn-default waves-effect w-md m-t-3 dispublish" article_id={{ article.id }} value="">非公開にする</button>
+                            		{% else %}
+                            			<button class="btn btn-success waves-effect w-md m-t-3 publish" article_id={{ article.id }} value="">公開する</button>
+                            		{% endif %}
+	                        	</td>
+	                        </tr>
+                    	{% endfor %}
+                    </tbody>
+                </table>
+		    </div>
+		</div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+	{% include './footer_02.html' %}
+{% endblock %}

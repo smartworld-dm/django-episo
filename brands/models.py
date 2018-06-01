@@ -1,9 +1,11 @@
 from django.utils.translation import gettext as _
+from django.contrib.auth.models import User
 from django.db import models
 from jsonfield import JSONField
 import datetime
 
 class Brand(models.Model):
+    user                    = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     name                    = models.CharField(max_length=50)
     name_slug               = models.CharField(max_length=50, default="name_slug")
     introduction            = models.TextField(default="")
