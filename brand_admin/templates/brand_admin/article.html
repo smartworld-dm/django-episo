@@ -18,29 +18,32 @@
             </div>
 
             <div class="row">
-                <form role="form" action="/brand-admin/save_article/" method="post" enctype="multipart/form-data">
+                <form role="form" action="/brand-admin/save_article/{{ article.id }}/" method="post" enctype="multipart/form-data">
                 	{% csrf_token %}
 
                     <div class="form-group">
                         <label>記事タイトル</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" name="title" class="form-control" value={{ article.title }}>
                     </div>
                     <div class="form-group cover-image">
                         <label>キャプチャー画像 (1200 x 675 px)</label>
                         <input type="file" name="cover-image">
-                        <img src="{% static 'images/empty-image.png' %}" alt="empty-image" style="width: 300px" />
+                        {% if article.cover_image %}
+                            <img src='/media/uploads/{{article.cover_image}}' alt="empty-image" style="width: 300px" />
+                        {% else %}
+                            <img src="{% static 'images/empty-image.png' %}" alt="empty-image" style="width: 300px" />
+                        {% endif %}
                     </div>
-
 
                     <div class="form-group">
                             <label class="">メンバー情報</label><br>
-                            <input type="text" name="member-name" placeholder="メンバー名" class="form-control" style="width:35%; display: inline-block;">
-                            <input type="text" name="member-title" placeholder="肩書き" class="form-control" style="width:35%; display: inline-block;">
+                            <input type="text" name="member-name" placeholder="メンバー名" class="form-control" style="width:35%; display: inline-block;" value={{ article.member_name }}>
+                            <input type="text" name="member-title" placeholder="肩書き" class="form-control" style="width:35%; display: inline-block;" value={{ article.member_title }}>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 control-label">投稿属性</label>
-                        <select name="attribute" class="form-control select" style="width:30%;clear:both;">
+                        <select name="attribute" class="form-control select" style="width:30%; clear:both;" initial={{ article.attribute }}>
                             <option>選択する</option>
                             <option value="イベント">イベント</option>
                             <option value="メンバー">メンバー</option>
@@ -50,7 +53,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">地域選択</label>
-                        <select name="region" class="form-control select" style="width:30%;clear:both;">
+                        <select name="region" class="form-control select" style="width:30%; clear:both;" initial={{ article.region }}>
                             <option>選択する</option>
                             <option value="北海道">北海道</option>
                             <option value="東北">東北</option>
@@ -64,7 +67,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">カテゴリー選択</label>
-                        <select name="category" class="form-control select" style="width:30%;clear:both;">
+                        <select name="category" class="form-control select" style="width:30%;clear:both;" initial={{ article.category }}>
                             <option>選択する</option>
                             <option value="fashion">ファッション</option>
                             <option value="食">食</option>
@@ -73,14 +76,14 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">投稿日時</label>
-                        <div class="input-group" style="width:30%;clear:both;">
-                            <input type="text" name="creation_date" class="form-control" placeholder="年月日 時分" id="datepicker" >
+                        <div class="input-group datetime-div" style="width:30%;clear:both;" date=  {{ article.creation_date|date:"Y-n-j"}} time={{ article.creation_date|time:'H:i' }}>
+                            <input type="text" name="creation_date" class="form-control" placeholder="年月日 時分" id="datepicker">
                             <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>投稿内容</label>
-                        <textarea id="js-article-content" name="content" class="form-control" rows="5"></textarea>
+                        <textarea id="js-article-content" name="content" class="form-control" rows="5" value={{ article.content }}></textarea>
                     </div>
 
 
@@ -117,6 +120,37 @@
 {% block script %}
 <script type="text/javascript">
     $(document).ready(function () {
+
+        var initial = $('select[name=attribute]').attr('initial');
+        $("select[name=attribute] option[value='" + initial + "']").attr("selected","selected");
+        initial = $('select[name=region]').attr('initial');
+        $("select[name=region] option[value='" + initial + "']").attr("selected","selected");
+        initial = $('select[name=category]').attr('initial');
+        $("select[name=category] option[value='" + initial + "']").attr("selected","selected");
+
+        var init_datetime = $('.datetime-div').attr('date') + ' ' + $('.datetime-div').attr('time');
+        $('.datetime-div input').val(init_datetime);
+
+        var free_links_str = "{{ article.free_links }}";
+        free_links_str = free_links_str.replace(/&#39;/g, '"');
+        var free_links = JSON.parse(free_links_str) 
+        var count = 0;
+        Object.keys(free_links).forEach(function(key) {
+            // console.log('Key : ' + key + ', Value : ' + free_links[key])
+            if (count === 0){ 
+                $('input[name=free-link-1-anchor]').val(key)
+                $('input[name=free-link-1-url]').val(free_links[key])
+            } else if (count === 1){
+                $('input[name=free-link-2-anchor]').val(key)
+                $('input[name=free-link-2-url]').val(free_links[key])
+            } else if (count === 2){
+                $('input[name=free-link-3-anchor]').val(key)
+                $('input[name=free-link-3-url]').val(free_links[key])
+            } 
+            count++;
+        })
+
+
         if($("#js-article-content").length > 0){
             tinymce.init({
                 selector: "textarea#js-article-content",
@@ -139,7 +173,19 @@
                     {title: 'Example 2', inline: 'span', classes: 'example2'},
                     {title: 'Table styles'},
                     {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-                ]
+                ],
+                init_instance_callback: function(editor) {
+                    // console.log('{{ content|linebreaks }}');
+                    var string = '{{ content|linebreaks }}';
+                    string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
+                    string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');
+                    string = string.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                    string = string.replace(/&amp;nbsp;/g, '').replace(/&quot;/g, '"');
+                    string = string.replace(/\.\../, '/');
+                    // console.log(string);
+
+                    editor.setContent(string);
+                }
             });
         }
 

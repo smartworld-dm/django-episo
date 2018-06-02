@@ -7,6 +7,7 @@ from django.conf import settings
 from django.db.models import Q
 import logging
 import os
+import html
 
 from articles.models import Article, Brand
 
@@ -40,15 +41,73 @@ def dashboard(request):
 def new_article(request):
 	return render(request, 'brand_admin/article.html')
 
-def edit_article(request):
-	return render(request, 'brand_admin/article.html')
+def edit_article(request, id):
+	article = Article.objects.get(pk=id)
+	content = html.escape(article.content)
+	context = {'article': article, 'content': content}
+	return render(request, 'brand_admin/article.html', context)
+
+def update_article(request, id):
+	title = request.POST.get('title', None)
+	cover_image = request.FILES.get('cover-image', None)
+
+	if cover_image:
+		# Upload file
+		save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
+		path = default_storage.save(save_path, cover_image)
+		cover_image = cover_image.name
+	else:
+		current_article = Article.objects.get(pk=id)
+		cover_image = current_article.cover_image
+	
+	member_name = request.POST.get('member-name', None)
+	member_title = request.POST.get('member-title', None)
+	attribute = request.POST.get('attribute', None)
+	region = request.POST.get('region', None)
+	category = request.POST.get('category', None)
+	creation_date = request.POST.get('creation_date', None)
+	content = request.POST.get('content', None)
+	free_link_1_anchor = request.POST.get('free-link-1-anchor', None)
+	free_link_1_url = request.POST.get('free-link-1-url', None)
+	free_link_2_anchor = request.POST.get('free-link-2-anchor', None)
+	free_link_2_url = request.POST.get('free-link-2-url', None)
+	free_link_3_anchor = request.POST.get('free-link-3-anchor', None)
+	free_link_3_url = request.POST.get('free-link-3-url', None)
+	free_links = {}
+	if free_link_1_anchor and free_link_1_url: free_links[free_link_1_anchor] = free_link_1_url
+	if free_link_2_anchor and free_link_2_url: free_links[free_link_2_anchor] = free_link_2_url
+	if free_link_3_anchor and free_link_3_url: free_links[free_link_3_anchor] = free_link_3_url
+
+	user = request.user
+	brand = Brand.objects.filter(user=user).first()
+
+	article = Article(
+		id=id,
+		title=title, 
+		brand=brand,
+		cover_image=cover_image,
+		member_name=member_name,
+		member_title=member_title,
+		attribute=attribute,
+		region=region,
+		category=category,
+		creation_date=creation_date,
+		content=content,
+		free_links=free_links
+		)
+	article.save()
+	return redirect('brand_admin_dashboard')
 
 def save_article(request):
 	title = request.POST.get('title', None)
-	# Upload file
-	save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', request.FILES['cover-image'].name)
-	path = default_storage.save(save_path, request.FILES['cover-image'])
-	cover_image = request.FILES['cover-image'].name
+	cover_image = request.FILES.get('cover-image', None)
+
+	if cover_image:
+		# Upload file
+		save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
+		path = default_storage.save(save_path, cover_image)
+		cover_image = cover_image.name
+	
 	member_name = request.POST.get('member-name', None)
 	member_title = request.POST.get('member-title', None)
 	attribute = request.POST.get('attribute', None)
@@ -83,7 +142,7 @@ def save_article(request):
 		content=content,
 		free_links=free_links
 		)
-	article.save()
+	# article.save()
 	return redirect('brand_admin_dashboard')
 
 def file_upload(request):
