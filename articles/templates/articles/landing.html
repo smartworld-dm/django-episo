@@ -15,7 +15,7 @@
             	{% for article in articles %}
 	                <a href="/articles/{{ article.id }}" class="main-carousel__item">
 	                    <figure class="main-carousel__figure">
-	                        <img src={% static article.cover_image.url %} alt="" class="main-carousel__view" style="width: 100%;">
+	                        <img src="/media/uploads/{{ article.cover_image }}" alt="" class="main-carousel__view" style="width: 100%;">
 	                    </figure>
 	                    <div class="main-carousel__desc">
 	                        <p class="main-carousel__headline_desc">
@@ -40,7 +40,7 @@
             	{% for article in top6_articles %}
                 <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
                     <figure class="episode-list__figure">
-                        <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                        <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                         <figcaption class="episode-list__figure_desc">
                             <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
                             <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
@@ -73,7 +73,7 @@
             	{% for brand in top6_brands %}
                     <a href="/brands/{{ brand.name }}" class="brand-list__item tile__item">
                         <figure class="brand-list__figure">
-                            <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
+                            <img src="/media/uploads/{{ brand.logo_image }}" alt="" class="brand-list__view">
                         </figure>
                         <div class="brand-list__info">
                             <h4 class="brand-list__brand-name">{{ brand.name }}</h4>

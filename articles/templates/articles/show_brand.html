@@ -15,14 +15,14 @@
         <article class="brand article">
 
             <figure class="brand__figure">
-                <img src={% static brand.cover_image.url %} alt="" class="article__view">
+                <img src="/media/uploads/{{ brand.cover_image }}" alt="" class="article__view">
             </figure>
 
             <section class="brand__info">
 
                 <div class="brand__company-details">
                     <figure class="brand__company-details_figure">
-                        <img src={% static brand.logo_image.url %} alt="" class="brand-list__view">
+                        <img src="/media/uploads/{{ brand.logo_image }}" alt="" class="brand-list__view">
                     </figure>
 
                     <h4 class="article__brand_details_brand-name">{{ brand.name }}</h4>
@@ -78,7 +78,7 @@
                     {% for article in top3_articles %}
                         <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item brand__relatives_tile_item">
                             <figure class="episode-list__figure">
-                                <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                                <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                                 <figcaption class="episode-list__figure_desc">
                                     <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
                                     <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
