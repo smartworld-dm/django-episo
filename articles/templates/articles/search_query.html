@@ -1,5 +1,6 @@
 {% extends './base.html' %}
 {% load static %}
+{% load tz %}
 
 {% block title %}<title>Episoze | 検索</title>{% endblock %}
 
@@ -31,7 +32,7 @@
                     {% for article in articles %}
                         <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
                             <figure class="episode-list__figure">
-                                <img src={% static article.cover_image.url %} alt="" class="episode-list__view" style="width: 100%;">
+                                <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                                 <figcaption class="episode-list__figure_desc">
                                     <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
                                     <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
@@ -41,7 +42,7 @@
                                 <h2 class="episode-list__headline">{{ article.title }}</h2>
                                 <div class="episode-list__info">
                                     <p class="episode-list__info_name">{{ article.brand.name }}</p>
-                                    <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                                    <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j"|utc }}</p>
                                 </div>
                             </article>
                         </a>

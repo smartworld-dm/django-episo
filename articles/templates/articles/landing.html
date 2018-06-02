@@ -1,5 +1,6 @@
 {% extends './base.html' %}
 {% load static %}
+{% load tz %}
 
 {% block header %}
 	{% include './header_01.html' %}
@@ -50,7 +51,7 @@
                         <h2 class="episode-list__headline">{{ article.title }}</h2>
                         <div class="episode-list__info">
                             <p class="episode-list__info_name">{{ article.brand.name }}</p>
-                            <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                            <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j"|utc }}</p>
                         </div>
                     </article>
                 </a>

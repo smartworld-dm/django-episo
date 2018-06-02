@@ -55,3 +55,17 @@ $('.cover-image > input[type=file]').change(function (e) {
       reader.readAsDataURL(file);
     }
 });
+
+$('.logo-image > input[type=file]').change(function (e) {
+    var t = e.target || window.event.srcElement;
+    var file = t.files[0];
+    var reader  = new FileReader();
+
+    reader.addEventListener("load", function () {
+      document.querySelector('.logo-image > img').src = reader.result;
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+});

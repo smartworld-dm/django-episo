@@ -1,4 +1,5 @@
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -31,6 +32,7 @@ def login(request):
 		context = {"error": "Invalid username or email. Please try again."}
 		return render(request, 'brand_admin/index.html', context)
 
+@login_required(login_url='/brand-admin/login')
 def dashboard(request):
 	user = request.user
 	brand = Brand.objects.filter(user=user).first()
@@ -38,21 +40,23 @@ def dashboard(request):
 	context = {'articles': articles}
 	return render(request, 'brand_admin/dashboard.html', context)
 
+@login_required(login_url='/brand-admin')
 def new_article(request):
 	return render(request, 'brand_admin/article.html')
 
+@login_required(login_url='/brand-admin')
 def edit_article(request, id):
 	article = Article.objects.get(pk=id)
 	content = html.escape(article.content)
 	context = {'article': article, 'content': content}
 	return render(request, 'brand_admin/article.html', context)
 
+@login_required(login_url='/brand-admin')
 def update_article(request, id):
 	title = request.POST.get('title', None)
 	cover_image = request.FILES.get('cover-image', None)
 
 	if cover_image:
-		# Upload file
 		save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
 		path = default_storage.save(save_path, cover_image)
 		cover_image = cover_image.name
@@ -98,6 +102,7 @@ def update_article(request, id):
 	article.save()
 	return redirect('brand_admin_dashboard')
 
+@login_required(login_url='/brand-admin')
 def save_article(request):
 	title = request.POST.get('title', None)
 	cover_image = request.FILES.get('cover-image', None)
@@ -145,12 +150,90 @@ def save_article(request):
 	# article.save()
 	return redirect('brand_admin_dashboard')
 
+@login_required(login_url='/brand-admin')
 def file_upload(request):
 	file = request.FILES['image']
 	save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', file.name)
 	path = default_storage.save(save_path, file)
 	return JsonResponse({"path": file.name})
 
+@login_required(login_url='/brand-admin')
+def profile(request):
+	user = request.user
+	brand = Brand.objects.filter(user=user).first()
+	if request.method == 'GET':
+		context = {'brand': brand}
+		logger.error(brand.small_introduction)
+		return render(request, 'brand_admin/profile.html', context)
+	if request.method == 'POST':
+		name = request.POST.get('name', None)
+		name_slug = request.POST.get('name-slug', None)
+
+		cover_image = request.FILES.get('cover-image', None)
+		logo_image = request.FILES.get('logo-image', None)
+
+		if cover_image:
+			save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
+			path = default_storage.save(save_path, cover_image)
+			cover_image = cover_image.name
+		else:
+			cover_image = brand.cover_image
+
+		if logo_image:
+			save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', logo_image.name)
+			path = default_storage.save(save_path, logo_image)
+			logo_image = logo_image.name
+		else:
+			logo_image = brand.logo_image
+
+		small_introduction = request.POST.get('small-introduction', None)
+		introduction = request.POST.get('introduction', None)
+		facebook_url = request.POST.get('facebook-url', None)
+		twitter_url = request.POST.get('twitter-url', None)
+		instagram_url = request.POST.get('instagram-url', None)
+		company_name = request.POST.get('company-name', None)
+		company_representative = request.POST.get('company-representative', None)
+		company_address = request.POST.get('company-address', None)
+		company_website = request.POST.get('company-website', None)
+		company_founding_date = request.POST.get('company-founding-date', None)
+		company_sales_offices = request.POST.get('company-sales-offices', None)
+		company_introduction = request.POST.get('company-introduction', None)
+		free_link_1_anchor = request.POST.get('free-link-1-anchor', None)
+		free_link_1_url = request.POST.get('free-link-1-url', None)
+		free_link_2_anchor = request.POST.get('free-link-2-anchor', None)
+		free_link_2_url = request.POST.get('free-link-2-url', None)
+		free_link_3_anchor = request.POST.get('free-link-3-anchor', None)
+		free_link_3_url = request.POST.get('free-link-3-url', None)
+		free_links = {}
+		if free_link_1_anchor and free_link_1_url: free_links[free_link_1_anchor] = free_link_1_url
+		if free_link_2_anchor and free_link_2_url: free_links[free_link_2_anchor] = free_link_2_url
+		if free_link_3_anchor and free_link_3_url: free_links[free_link_3_anchor] = free_link_3_url
+
+		new_brand = Brand(
+			id=brand.id,
+			user=user,
+			name=name,
+			name_slug=name_slug,
+			logo_image=logo_image,
+			cover_image=cover_image,
+			small_introduction=small_introduction,
+			introduction=introduction,
+			facebook_url=facebook_url,
+			twitter_url=twitter_url,
+			instagram_url=instagram_url,
+			company_name=company_name,
+			company_representative=company_representative,
+			company_address=company_address,
+			company_website=company_website,
+			company_founding_date=company_founding_date,
+			company_sales_offices=company_sales_offices,
+			company_introduction=company_introduction,
+			free_links=free_links
+			)
+		new_brand.save()
+		return redirect('brand_admin_dashboard')
+
+@login_required(login_url='/brand-admin')
 def publish_article(request):
 	article_id = request.POST.get('article_id', None)
 	is_published = request.POST.get('is_published', None)

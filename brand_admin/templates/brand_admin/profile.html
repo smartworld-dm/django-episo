@@ -1,0 +1,272 @@
+{% extends './base.html' %}
+{% load app_filters %}
+{% load static %}
+{% load tz %}
+
+{% block title %}<title>Episoze</title>{% endblock %}
+
+{% block header %}
+    {% include './header_02.html' %}
+{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+        <div class="container">
+
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">プロフィール</h4>
+                    <h5 class="text-center">ブランド情報</h5>
+                </div>
+            </div>
+
+            <div class="row">
+            	<form role="form" action="/brand-admin/profile/" method="post" enctype="multipart/form-data">
+            		{% csrf_token %}
+
+                    <div class="form-group">
+                        <label>ブランド名（和）</label>
+                        <input type="text" class="form-control" name="name" style="width:30%;" value={{ brand.name }}>
+                    </div>
+                    <div class="form-group">
+                        <label>ブランド名（英、URLスラグ用）</label>
+                        <input type="text" class="form-control" name="name-slug" style="width:30%;" value={{ brand.name_slug }}>
+                    </div>
+                    <div class="form-group logo-image">
+                        <label>ブランドロゴ (280 x 280 px)</label>
+                        <input type="file" name="logo-image">
+                        {% if article.logo_image %}
+                            <img src='/media/uploads/{{article.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
+                        {% else %}
+                            <img src="{% static 'images/empty-image.png' %}" alt="preview of brand logo" class="preview-image" style="width: 140px" />
+                        {% endif %}
+                    </div>
+                    <div class="form-group cover-image">
+                        <label>ブランドイメージ (912 x 500 px)</label>
+                        <input type="file" name="cover-image">
+                        {% if article.cover_image %}
+                            <img src='/media/uploads/{{article.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
+                        {% else %}
+                            <img src="{% static 'images/empty-image.png' %}" alt="preview of brand cover" class="preview-image" style="width: 300px" />
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label>ブランド紹介文</label>
+                        <input type="text" name="small-introduction" class="form-control" value={{ brand.small_introduction|spacify }}>
+                    </div>
+                    <div class="form-group">
+                        <label>ブランド概要</label>
+                        <textarea name="introduction" class="form-control" rows="3" value="{{ brand.introduction }}">{{ brand.introduction }}</textarea>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Facebook</label>
+                            <div class="col-md-10">
+                                <input type="text" name="facebook-url" class="form-control" value={{ brand.facebook_url|spacify }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Twitter</label>
+                            <div class="col-md-10">
+                                <input type="text" name="twitter-url" class="form-control" value={{ brand.twitter_url|spacify }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Instagram</label>
+                            <div class="col-md-10">
+                                <input type="text" name="instagram-url" class="form-control" value={{ brand.instagram_url|spacify }}>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12 m-b-20 m-t-15">
+                        <h5 class="text-center">会社情報</h5>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">会社名</label>
+                            <div class="col-md-10">
+                                <input type="text" name="company-name" class="form-control" value={{ brand.company_name|spacify }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">代表者</label>
+                            <div class="col-md-10">
+                                <input type="text" name="company-representative" class="form-control" value={{ brand.company_representative|spacify }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">住所</label>
+                            <div class="col-md-10">
+                                <input type="text" name="company-address" class="form-control" value={{ brand.company_address|spacify }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">公式HP</label>
+                            <div class="col-md-10">
+                                <input type="text" name="company-website" class="form-control" value={{ brand.company_website|spacify }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">創業日時</label>
+                            <div class="col-md-10">
+                                <div class="input-group" style="width:40%;clear:both;">
+                                    <input type="text" name="company-founding-date" class="form-control" placeholder="年月日" id="datepicker" value={{ brand.company_founding_date|date:"Y-n-j"|utc }}>
+                                    <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">営業所</label>
+                            <div class="">
+                                <textarea type="text" name="company-sales-offices" class="form-control" value={{ brand.company_sales_offices }}>{{ brand.company_sales_offices }}</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>About</label>
+                            <textarea id="js-company-introduction" name="company-introduction" class="form-control" rows="5"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="">リンク１</label><br>
+                                <input type="text" name="free-link-1-anchor" placeholder="テキスト" class="form-control" style="width:35%;display: inline-block;">
+                                <input type="text" name="free-link-1-url" placeholder="URL" class="form-control" style="width:35%; display: inline-block;">
+                        </div>
+
+                        <div class="form-group">
+                                <label class="">リンク２</label><br>
+                                <input type="text" name="free-link-2-anchor" placeholder="テキスト" class="form-control" style="width:35%;display: inline-block;">
+                                <input type="text" name="free-link-2-url" placeholder="URL" class="form-control" style="width:35%; display: inline-block;">
+                        </div>
+                        <div class="form-group">
+                                <label class="">リンク３</label><br>
+                                <input type="text" name="free-link-3-anchor" placeholder="テキスト" class="form-control" style="width:35%;display: inline-block;">
+                                <input type="text" name="free-link-3-anchor" placeholder="URL" class="form-control" style="width:35%; display: inline-block;">
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary waves-effect btn-lg w-lg waves-light">保存</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+	{% include './footer_02.html' %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$(document).ready(function () {
+		var free_links_str = "{{ brand.free_links }}";
+        free_links_str = free_links_str.replace(/&#39;/g, '"');
+        var free_links = JSON.parse(free_links_str) 
+        var count = 0;
+        Object.keys(free_links).forEach(function(key) {
+            if (count === 0){ 
+                $('input[name=free-link-1-anchor]').val(key)
+                $('input[name=free-link-1-url]').val(free_links[key])
+            } else if (count === 1){
+                $('input[name=free-link-2-anchor]').val(key)
+                $('input[name=free-link-2-url]').val(free_links[key])
+            } else if (count === 2){
+                $('input[name=free-link-3-anchor]').val(key)
+                $('input[name=free-link-3-url]').val(free_links[key])
+            } 
+            count++;
+        })
+
+        if($("#js-company-introduction").length > 0){
+            tinymce.init({
+                selector: "textarea#js-company-introduction",
+                theme: "modern",
+                height:300,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |  print preview media fullpage | forecolor backcolor emoticons | imageupload",
+                setup: function(editor){
+                    initImageUpload(editor);
+                },
+                style_formats: [
+                    {title: 'Header 1', block: 'h1'},
+                    {title: 'Header 2', block: 'h2'},
+                    {title: 'Header 3', block: 'h3'},
+                    {title: 'Paragraph', block: 'p'},
+                    {title: 'Bold', inline: 'b'},
+                    {title: 'Italic', inline: 'i'},
+                    //{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                ],
+                init_instance_callback: function(editor) {
+                    var string = '{{ brand.company_introduction|linebreaks }}';
+                    string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
+                    string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');
+                    string = string.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                    string = string.replace(/&amp;nbsp;/g, '').replace(/&quot;/g, '"');
+                    string = string.replace(/\.\../, '/');
+                    editor.setContent(string);
+                }
+            });
+        }
+
+        $('#datepicker').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
+        function initImageUpload(editor) {
+            var inputFile = $('<input id="tinymce-uploader" type="file" name="pic" accept="image/*" style="display:none">');
+            $(editor.getElement()).parent().append(inputFile);
+
+            editor.addButton('imageupload', {
+                text: '',
+                icon: 'image',
+                onclick: function(e) { // when toolbar button is clicked, open file select modal
+                    inputFile.trigger('click');
+                }
+            });
+
+            inputFile.on("change", function(e){
+                uploadFile($(this), editor);
+            });
+        }
+
+        function uploadFile(inputFile, editor) {
+            var input = inputFile.get(0);
+            var data = new FormData();
+            data.append('image[file]', input.files[0]);
+
+            $.ajax({
+                url: 'http://replace-this',
+                type: 'POST',
+                data: data,
+                processData: false, // Don't process the files
+                contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+                success: function(data, textStatus, jqXHR) {
+                    editor.insertContent('<img class="content-img" src="' + data.path + '"/>');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if(jqXHR.responseText) {
+                        errors = JSON.parse(jqXHR.responseText).errors;
+                        alert('Error uploading image: ' + errors.join(", ") + '. Make sure the file is an image and has extension jpg/jpeg/png.');
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

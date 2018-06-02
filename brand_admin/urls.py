@@ -13,4 +13,5 @@ urlpatterns = [
 	url(r'^save_article/(?P<id>\d+)/', views.update_article, name="update_article"),
 	url(r'^save_article', views.save_article, name="save_article"),
 	url(r'^file_upload', views.file_upload, name="file_upload"),
+	url(r'^profile', views.profile, name="profile"),
 ]

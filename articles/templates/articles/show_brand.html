@@ -1,5 +1,6 @@
 {% extends './base.html' %}
 {% load static %}
+{% load tz %}
 
 {% block title %}<title>Episoze | {{ brand.title }}</title>{% endblock %}
 {% block og_title %}<meta property="og:title" content="{{ brand.name }}">{% endblock %}
@@ -88,7 +89,7 @@
                                 <h2 class="episode-list__headline brand__relatives_desc_headline">{{ article.title }}</h2>
                                 <div class="episode-list__info">
                                     <p class="episode-list__info_name">{{ article.brand.name }}</p>
-                                    <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j" }}</p>
+                                    <p class="episode-list__info_date">{{ article.creation_date|date:"Y/n/j"|utc }}</p>
                                 </div>
                             </article>
                         </a>
@@ -113,7 +114,7 @@
                     <tr class="about-box__tr">
                         <td class="about-box__td">本社</td>
                         <td class="about-box__td">
-                            <p>{{ brand.company_address|date:"Y年n月j日" }}</p>
+                            <p>{{ brand.company_address|date:"Y年n月j日"|utc }}</p>
                         </td>
                     </tr>
                     <tr class="about-box__tr">
