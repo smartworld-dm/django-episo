@@ -17,7 +17,7 @@ class Article(models.Model):
     category            = models.TextField(null=True, blank=True)
     content             = models.TextField(null=True, blank=True)
     is_published        = models.BooleanField(default=False)
-    free_links          = JSONField("free_links", null=True, blank=True)
+    free_links          = JSONField("free_links", default={ "key": "value" }, null=True, blank=True)
     creation_date       = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
