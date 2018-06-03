@@ -16,7 +16,7 @@
         <article class="article">
 
             <figure class="article__figure">
-                <img src="/media/uploads/{{ article.cover_image }}" alt="" class="article__view">
+                <img src="/media/{{ article.cover_image }}" alt="" class="article__view">
                 <figcaption class="article__figure_desc">
                     <h2 class="article__figure_headline">{{ article.member_name }}</h2>
                     <p class="article__figure_headline_desc">
@@ -41,7 +41,7 @@
 
                 <div class="article__brand">
                     <figure class="brand-list__figure">
-                        <img src="/media/uploads/article.brand.logo_image }}" alt="" class="brand-list__view">
+                        <img src="/media/article.brand.logo_image }}" alt="" class="brand-list__view">
                     </figure>
                     <div class="brand-list__info">
                         <h4 class="brand-list__brand-name">{{ article.brand.name }}</h4>
@@ -71,7 +71,7 @@
                 <div class="article__brand_details">
 
                     <figure class="article__brand_details_figure">
-                        <img src="/media/uploads/{{ article.brand.logo_image }}" alt="" class="brand-list__view">
+                        <img src="/media/{{ article.brand.logo_image }}" alt="" class="brand-list__view">
                     </figure>
 
                     <h4 class="article__brand_details_brand-name">{{ article.brand.name }}</h4>
@@ -90,7 +90,7 @@
                 	{% for article in same_brand_articles %}
                     <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
                         <figure class="episode-list__figure">
-                            <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
+                            <img src="/media/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                             <figcaption class="episode-list__figure_desc">
                                 <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
                                 <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>

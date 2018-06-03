@@ -37,7 +37,7 @@
                         <label>ブランドロゴ (280 x 280 px)</label>
                         <input type="file" name="logo-image">
                         {% if article.logo_image %}
-                            <img src='/media/uploads/{{article.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
+                            <img src='/media/{{article.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="preview of brand logo" class="preview-image" style="width: 140px" />
                         {% endif %}
@@ -46,7 +46,7 @@
                         <label>ブランドイメージ (912 x 500 px)</label>
                         <input type="file" name="cover-image">
                         {% if article.cover_image %}
-                            <img src='/media/uploads/{{article.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
+                            <img src='/media/{{article.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="preview of brand cover" class="preview-image" style="width: 300px" />
                         {% endif %}
