@@ -130,7 +130,10 @@
         $("select[name=category] option[value='" + initial + "']").attr("selected","selected");
 
         var init_datetime = $('.datetime-div').attr('date') + ' ' + $('.datetime-div').attr('time');
-        $('.datetime-div input').val(init_datetime);
+        if ($('.datetime-div').attr('date') == 'time=')
+            $('.datetime-div input').val('');    
+        else
+            $('.datetime-div input').val(init_datetime);
 
         var free_links_str = "{{ article.free_links }}";
         free_links_str = free_links_str.replace(/&#39;/g, '"');

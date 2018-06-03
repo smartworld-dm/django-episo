@@ -18,19 +18,23 @@ def index(request):
 	return render(request, 'brand_admin/index.html')
 
 def login(request):
-	email_or_username = request.POST['email_or_username']
-	password = request.POST['password']
-	user = User.objects.filter(Q(username=email_or_username) | Q(email=email_or_username))
-	if user.count() > 0:
-		if user.first().check_password(password):
-			auth_login(request, user.first())
-			return redirect('brand_admin_dashboard')
+	if request.method == 'GET':
+		return render(request, 'brand_admin/index.html')
+	if request.method == 'POST':
+		email_or_username = request.POST['email_or_username']
+		password = request.POST['password']
+		user = User.objects.filter(Q(username=email_or_username) | Q(email=email_or_username))
+		
+		if user.count() > 0:
+			if user.first().check_password(password):
+				auth_login(request, user.first())
+				return redirect('brand_admin_dashboard')
+			else:
+				context = {"error": "Your username and password didn't match. Please try again."}
+				return render(request, 'brand_admin/index.html', context)
 		else:
-			context = {"error": "Your username and password didn't match. Please try again."}
+			context = {"error": "Invalid username or email. Please try again."}
 			return render(request, 'brand_admin/index.html', context)
-	else:
-		context = {"error": "Invalid username or email. Please try again."}
-		return render(request, 'brand_admin/index.html', context)
 
 @login_required(login_url='/brand-admin/login')
 def dashboard(request):
