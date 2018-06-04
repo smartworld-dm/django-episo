@@ -6,8 +6,8 @@ from datetime import datetime
 
 class Brand(models.Model):
     user                    = models.OneToOneField(User, on_delete=models.CASCADE, default=0)
-    name                    = models.CharField(max_length=50)
-    name_slug               = models.CharField(max_length=50, default="name_slug")
+    name                    = models.CharField(max_length=50, null=True, blank=True)
+    name_slug               = models.CharField(max_length=50, default="name_slug", null=True, blank=True)
     logo_image              = models.FileField(upload_to='uploads/', default="default.png", null=True, blank=True)
     cover_image             = models.FileField(upload_to='uploads/', default="default.png", null=True, blank=True)
     introduction            = models.TextField(default="", null=True, blank=True)
