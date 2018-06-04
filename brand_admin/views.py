@@ -151,7 +151,7 @@ def save_article(request):
 		content=content,
 		free_links=free_links
 		)
-	# article.save()
+	article.save()
 	return redirect('brand_admin_dashboard')
 
 @login_required(login_url='/brand-admin')

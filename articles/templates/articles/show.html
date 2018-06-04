@@ -16,7 +16,7 @@
         <article class="article">
 
             <figure class="article__figure">
-                <img src="/media/{{ article.cover_image }}" alt="" class="article__view">
+                <img src="/media/uploads/{{ article.cover_image }}" alt="" class="article__view">
                 <figcaption class="article__figure_desc">
                     <h2 class="article__figure_headline">{{ article.member_name }}</h2>
                     <p class="article__figure_headline_desc">
@@ -41,7 +41,7 @@
 
                 <div class="article__brand">
                     <figure class="brand-list__figure">
-                        <img src="/media/article.brand.logo_image }}" alt="" class="brand-list__view">
+                        <img src="/media/{{ article.brand.logo_image }}" alt="" class="brand-list__view">
                     </figure>
                     <div class="brand-list__info">
                         <h4 class="brand-list__brand-name">{{ article.brand.name }}</h4>
@@ -54,7 +54,8 @@
                 </div>
 
                 <div class="wp__typo">
-                    {{ article.content }}
+                    <p id="js-article-content"></p>
+                    
                     <div class="button__wrap button__wrap_column button__wrap_align-center article__content_button_wrap">
 
                         {% for key, value in article.free_links.items %}
@@ -90,7 +91,7 @@
                 	{% for article in same_brand_articles %}
                     <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
                         <figure class="episode-list__figure">
-                            <img src="/media/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
+                            <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                             <figcaption class="episode-list__figure_desc">
                                 <h3 class="episode-list__figure_headline">{{ artilce.member_name }}</h3>
                                 <p class="episode-list__figure_headline_desc">{{ article.member_title }} | {{ article.brand.name }}</p>
@@ -117,4 +118,22 @@
 
 {% block footer %}
 	{% include './footer_01.html' %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#js-article-content").length > 0){
+            var string = '{{ article.content|linebreaks }}';
+            string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
+            string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');
+            string = string.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+            string = string.replace(/&amp;nbsp;/g, '').replace(/&quot;/g, '"');
+            string = string.replace(/\.\../, '/');
+            console.log(string);
+
+            $("#js-article-content").html(string);
+        }
+    });
+</script>
 {% endblock %}

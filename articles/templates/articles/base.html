@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="{% static 'css/original_style.css' %}">
 
   <!-- Add additional JS in static file -->
-  <script src="{% static 'js/core.js' %}"></script>
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59c11ecc8d910be6"></script>
 </head>
 
@@ -53,5 +52,33 @@
       {% block footer %}
       {% endblock %}
   </div>
+
+  <!-- jQuery  -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/detect.js' %}"></script>
+  <script src="{% static 'js/fastclick.js' %}"></script>
+  <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+  <script src="{% static 'js/jquery.blockUI.js' %}"></script>
+  <script src="{% static 'js/wow.min.js' %}"></script>
+  <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
+  <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+  <script src="{% static 'js/jquery.core.js' %}"></script>
+  <script src="{% static 'js/jquery.app.js' %}"></script>
+
+  <!--form wysiwig js-->
+  <script src="{% static 'js/plugins/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'js/plugins/select2/dist/js/select2.min.js' %}"></script>
+
+  <!-- datetimepicker -->
+  <script src="{% static 'js/plugins/moment/min/moment.min.js' %}"></script>
+  <script src="{% static 'js/plugins/bootstratp-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+
+  <!-- App js -->
+  <script src="{% static 'js/app.js' %}"></script>
+  <script src="{% static 'js/core.js' %}"></script>
+
+  {% block script %}
+  {% endblock %}
 </body>
 </html>

@@ -172,22 +172,24 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		var free_links_str = "{{ brand.free_links }}";
-        free_links_str = free_links_str.replace(/&#39;/g, '"');
-        var free_links = JSON.parse(free_links_str) 
-        var count = 0;
-        Object.keys(free_links).forEach(function(key) {
-            if (count === 0){ 
-                $('input[name=free-link-1-anchor]').val(key)
-                $('input[name=free-link-1-url]').val(free_links[key])
-            } else if (count === 1){
-                $('input[name=free-link-2-anchor]').val(key)
-                $('input[name=free-link-2-url]').val(free_links[key])
-            } else if (count === 2){
-                $('input[name=free-link-3-anchor]').val(key)
-                $('input[name=free-link-3-url]').val(free_links[key])
-            } 
-            count++;
-        })
+        if (free_links_str.length > 0){
+            free_links_str = free_links_str.replace(/&#39;/g, '"');
+            var free_links = JSON.parse(free_links_str) 
+            var count = 0;
+            Object.keys(free_links).forEach(function(key) {
+                if (count === 0){ 
+                    $('input[name=free-link-1-anchor]').val(key)
+                    $('input[name=free-link-1-url]').val(free_links[key])
+                } else if (count === 1){
+                    $('input[name=free-link-2-anchor]').val(key)
+                    $('input[name=free-link-2-url]').val(free_links[key])
+                } else if (count === 2){
+                    $('input[name=free-link-3-anchor]').val(key)
+                    $('input[name=free-link-3-url]').val(free_links[key])
+                } 
+                count++;
+            })
+        }
 
         if($("#js-company-introduction").length > 0){
             tinymce.init({
@@ -248,16 +250,17 @@
         function uploadFile(inputFile, editor) {
             var input = inputFile.get(0);
             var data = new FormData();
-            data.append('image[file]', input.files[0]);
+            data.append('image', input.files[0]);
+            data.append('csrfmiddlewaretoken', $( "input[name='csrfmiddlewaretoken']" ).val())
 
             $.ajax({
-                url: 'http://replace-this',
+                url: '/brand-admin/file_upload',
                 type: 'POST',
                 data: data,
                 processData: false, // Don't process the files
                 contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                 success: function(data, textStatus, jqXHR) {
-                    editor.insertContent('<img class="content-img" src="' + data.path + '"/>');
+                    editor.insertContent('<img class="content-img" src="/media/uploads/' + data.path + '"/>');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.responseText) {
