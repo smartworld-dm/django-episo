@@ -136,26 +136,27 @@
             $('.datetime-div input').val(init_datetime);
 
         var free_links_str = "{{ article.free_links }}";
-        free_links_str = free_links_str.replace(/&#39;/g, '"');
-        var free_links = JSON.parse(free_links_str) 
-        var count = 0;
-        Object.keys(free_links).forEach(function(key) {
-            // console.log('Key : ' + key + ', Value : ' + free_links[key])
-            if (count === 0){ 
-                $('input[name=free-link-1-anchor]').val(key)
-                $('input[name=free-link-1-url]').val(free_links[key])
-            } else if (count === 1){
-                $('input[name=free-link-2-anchor]').val(key)
-                $('input[name=free-link-2-url]').val(free_links[key])
-            } else if (count === 2){
-                $('input[name=free-link-3-anchor]').val(key)
-                $('input[name=free-link-3-url]').val(free_links[key])
-            } 
-            count++;
-        })
+        if (free_links_str.length > 0){
+            free_links_str = free_links_str.replace(/&#39;/g, '"');
+            var free_links = JSON.parse(free_links_str);
+            var count = 0;
+            Object.keys(free_links).forEach(function(key) {
+                // console.log('Key : ' + key + ', Value : ' + free_links[key])
+                if (count === 0){ 
+                    $('input[name=free-link-1-anchor]').val(key)
+                    $('input[name=free-link-1-url]').val(free_links[key])
+                } else if (count === 1){
+                    $('input[name=free-link-2-anchor]').val(key)
+                    $('input[name=free-link-2-url]').val(free_links[key])
+                } else if (count === 2){
+                    $('input[name=free-link-3-anchor]').val(key)
+                    $('input[name=free-link-3-url]').val(free_links[key])
+                } 
+                count++;
+            })
+        }
 
-
-        if($("#js-article-content").length > 0){
+        if ($("#js-article-content").length > 0){
             tinymce.init({
                 selector: "textarea#js-article-content",
                 theme: "modern",
