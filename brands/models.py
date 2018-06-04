@@ -22,8 +22,5 @@ class Brand(models.Model):
     company_founding_date   = models.DateField(_("Date"), default=datetime.today)
     company_sales_offices   = models.TextField(default="sames_offices", null=True, blank=True)
     company_introduction    = models.TextField(default="company_introduction", null=True, blank=True)
-    free_links              = JSONField("free_links", default={ "key": "value" }, null=True, blank=True)
+    free_links              = JSONField("free_links", default=[], null=True, blank=True)
     creation_date           = models.DateTimeField(default=datetime.now)
-    
-    def __str__(self):
-        return self.name
