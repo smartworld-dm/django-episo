@@ -36,8 +36,8 @@
                     <div class="form-group logo-image">
                         <label>ブランドロゴ (280 x 280 px)</label>
                         <input type="file" name="logo-image">
-                        {% if article.logo_image %}
-                            <img src='/media/{{article.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
+                        {% if brand.logo_image %}
+                            <img src='/media/uploads/{{brand.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="preview of brand logo" class="preview-image" style="width: 140px" />
                         {% endif %}
@@ -45,8 +45,8 @@
                     <div class="form-group cover-image">
                         <label>ブランドイメージ (912 x 500 px)</label>
                         <input type="file" name="cover-image">
-                        {% if article.cover_image %}
-                            <img src='/media/{{article.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
+                        {% if brand.cover_image %}
+                            <img src='/media/uploads/{{brand.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="preview of brand cover" class="preview-image" style="width: 300px" />
                         {% endif %}
@@ -115,8 +115,8 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">創業日時</label>
                             <div class="col-md-10">
-                                <div class="input-group" style="width:40%;clear:both;">
-                                    <input type="text" name="company-founding-date" class="form-control" placeholder="年月日" id="datepicker" value={{ brand.company_founding_date|date:"Y-n-j"|utc }}>
+                                <div class="input-group datetime-div" style="width: 40%; clear: both;" date={{ brand.creation_date|date:"Y-n-j" }}>
+                                    <input type="text" name="company-founding-date" class="form-control" placeholder="年月日" id="datepicker">
                                     <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
                                 </div>
                             </div>
@@ -190,6 +190,12 @@
                 count++;
             })
         }
+
+        var init_datetime = $('div.datetime-div').attr('date');
+        if ($('.datetime-div').attr('date') == 'time=')
+            $('.datetime-div input').val('');    
+        else
+            $('.datetime-div input').val(init_datetime);
 
         if($("#js-company-introduction").length > 0){
             tinymce.init({
