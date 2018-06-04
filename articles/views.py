@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def index(request):
 	articles = Article.objects.filter(is_published=True).order_by('-creation_date')
-	paginator = Paginator(articles, 2)
+	paginator = Paginator(articles, 10)
 	page = request.GET.get('page')
 	articles_page = paginator.get_page(page)
 	context = {'articles': articles_page, 'page_cnt': range(articles_page.paginator.num_pages)}
@@ -39,7 +39,7 @@ def show_brand(request, name):
 
 def index_brand(request):
 	brands = Brand.objects.order_by('-creation_date')
-	paginator = Paginator(brands, 4)
+	paginator = Paginator(brands, 12)
 	page = request.GET.get('page')
 	brands_page = paginator.get_page(page)
 	context = {'brands': brands_page, 'page_cnt': range(brands_page.paginator.num_pages)}
