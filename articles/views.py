@@ -31,7 +31,7 @@ def show(request, id):
 	return render(request, 'articles/show.html', context)
 
 def show_brand(request, name):
-	brand = Brand.objects.filter(name=name).first()
+	brand = Brand.objects.filter(name=name_slug).first()
 	top3_articles = Article.objects.filter(is_published=True, brand=brand).order_by('-creation_date')[:3]
 	logger.error(top3_articles)
 	context = {'brand': brand, 'top3_articles': top3_articles}
