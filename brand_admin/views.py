@@ -1,4 +1,5 @@
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User
@@ -35,6 +36,10 @@ def login(request):
 		else:
 			context = {"error": "Invalid username or email. Please try again."}
 			return render(request, 'brand_admin/index.html', context)
+
+def logout(request):
+	auth_logout(request)
+	return redirect('brand_admin_index')
 
 @login_required(login_url='/brand-admin/login')
 def dashboard(request):

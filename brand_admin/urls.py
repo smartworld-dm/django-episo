@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
 	url(r'^login', views.login, name="brand_admin_login"),
+	url(r'^logout', views.logout, name="brand_admin_logout"),
 	url(r'^dashboard', views.dashboard, name="brand_admin_dashboard"),
 	url(r'^publish_article', views.publish_article, name="publish_article"),
 	url(r'^creation/(?P<id>\d+)/', views.edit_article, name="edit_article"),
