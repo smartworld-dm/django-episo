@@ -20,9 +20,9 @@
 	            <div class="brand-list__tile tile">
 
 	            	{% for brand in brands %}
-		                <a href="/brands/{{ brand.name }}" class="brand-list__item tile__item">
+		                <a href="/brands/{{ brand.name_slug }}" class="brand-list__item tile__item">
 		                    <figure class="brand-list__figure">
-		                        <img src="/media/{{ brand.logo_image }}" alt="" class="brand-list__view">
+		                        <img src="/media/uploads/{{ brand.logo_image }}" alt="" class="brand-list__view">
 		                    </figure>
 		                    <div class="brand-list__info">
 		                        <h4 class="brand-list__brand-name">{{ brand.name }}</h4>
