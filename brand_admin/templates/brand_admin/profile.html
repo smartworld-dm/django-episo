@@ -221,7 +221,8 @@
                     //{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
                 ],
                 init_instance_callback: function(editor) {
-                    var string = '{{ brand.company_introduction|linebreaks }}';
+                    var string = '{{ brand.company_introduction|linebreaksbr }}';
+                    // console.log(string);
                     string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
                     string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');
                     string = string.replace(/&lt;/g, '<').replace(/&gt;/g, '>');

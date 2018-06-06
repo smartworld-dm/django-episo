@@ -180,7 +180,6 @@
                     {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
                 ],
                 init_instance_callback: function(editor) {
-                    // console.log('{{ content|linebreaks }}');
                     var string = '{{ content|linebreaks }}';
                     string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
                     string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');

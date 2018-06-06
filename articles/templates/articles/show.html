@@ -124,7 +124,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         if ($("#js-article-content").length > 0){
-            var string = '{{ article.content|linebreaks }}';
+            var string = '{{ article.content|linebreaksbr }}';
             string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
             string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');
             string = string.replace(/&lt;/g, '<').replace(/&gt;/g, '>');

@@ -27,7 +27,7 @@
                     </figure>
 
                     <h4 class="article__brand_details_brand-name">{{ brand.name }}</h4>
-                    <div class="article__brand_details_desc">{{ brand.introduction }}</div>
+                    <p class="article__brand_details_desc" id="js-brand-introduction"></p>
                 </div>
 
                 <div class="social-box brand__social-box">
@@ -126,7 +126,7 @@
                     <tr class="about-box__tr">
                         <td class="about-box__td">営業所</td>
                         <td class="about-box__td">
-                            <p>{{ brand.company_sales_offices }}</p>
+                            <p id="js-company-sales-office"></p>
                         </td>
                     </tr>
                     <tr class="about-box__tr">
@@ -157,15 +157,25 @@
 <script type="text/javascript">
     $(document).ready(function () {
         if ($("#js-article-content").length > 0){
-            var string = '{{ brand.company_introduction|linebreaks }}';
+            var string = '{{ brand.company_introduction|linebreaksbr }}';
             string = string.replace(/<br .>/g, '').replace(/<p>/g, '').replace(/<.p>/g, '');
             string = string.replace(/&amp;/g, '&').replace(/&nbsp;/g, '');
             string = string.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
             string = string.replace(/&amp;nbsp;/g, '').replace(/&quot;/g, '"');
             string = string.replace(/\.\../, '/');
-            console.log(string);
+            // console.log(string);
 
             $("#js-article-content").html(string);
+        }
+
+        if ($("#js-brand-introduction").length > 0){
+            var string = '{{ brand.introduction|linebreaksbr }}';
+            $("#js-brand-introduction").html(string);
+        }
+
+        if ($("#js-company-sales-office").length > 0){
+            var string = '{{ brand.company_sales_offices|linebreaksbr }}';
+            $("#js-company-sales-office").html(string);
         }
     });
 </script>

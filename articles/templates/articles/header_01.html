@@ -21,7 +21,7 @@
                     </li>
                     <li class="nav__item {% if request.path == '/episodes/' %} current-menu-item {% endif %}"><a class="nav__item_link" href="/episodes">エピソード一覧</a>
                     </li>
-                    <li class="nav__item {% if request.path == '/brands/' %} current-menu-item {% endif %}""><a class="nav__item_link" href="/brands">ブランド一覧</a></li>
+                    <li class="nav__item {% if request.path == '/brands/' %} current-menu-item {% endif %}""><a class="nav__item_link" href={% url 'index_brand' %}>ブランド一覧</a></li>
                     <li class="nav__item"><a class="nav__item_link" href="/">What’s Episoze?</a></li>
                     <li class="nav__item {% if request.path == '/contact/' %} current-menu-item {% endif %} nav__item_mobile-only"><a class="nav__item_link"
                                                                    href="/contact">お問い合わせ</a></li>
