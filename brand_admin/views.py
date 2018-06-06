@@ -218,28 +218,25 @@ def profile(request):
 		if free_link_2_anchor and free_link_2_url: free_links[free_link_2_anchor] = free_link_2_url
 		if free_link_3_anchor and free_link_3_url: free_links[free_link_3_anchor] = free_link_3_url
 
-		new_brand = Brand(
-			id=brand.id,
-			user=user,
-			name=name,
-			name_slug=name_slug,
-			logo_image=logo_image,
-			cover_image=cover_image,
-			small_introduction=small_introduction,
-			introduction=introduction,
-			facebook_url=facebook_url,
-			twitter_url=twitter_url,
-			instagram_url=instagram_url,
-			company_name=company_name,
-			company_representative=company_representative,
-			company_address=company_address,
-			company_website=company_website,
-			company_founding_date=company_founding_date,
-			company_sales_offices=company_sales_offices,
-			company_introduction=company_introduction,
-			free_links=free_links
-			)
-		new_brand.save()
+		brand.name = name
+		brand.name_slug = name_slug
+		brand.cover_image = cover_image
+		brand.logo_image = logo_image
+		brand.small_introduction = small_introduction
+		brand.introduction =introduction
+		brand.facebook_url = facebook_url
+		brand.twitter_url = twitter_url
+		brand.instagram_url = instagram_url
+		brand.company_name = company_name
+		brand.company_representative = company_representative
+		brand.company_address = company_address
+		brand.company_website = company_website
+		brand.company_founding_date = company_founding_date
+		brand.company_sales_offices = company_sales_offices
+		brand.company_introduction = company_introduction
+		brand.free_links = free_links
+		brand.save()
+		
 		return redirect('brand_admin_dashboard')
 
 @login_required(login_url='/brand-admin')

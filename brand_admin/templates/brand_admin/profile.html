@@ -27,11 +27,11 @@
 
                     <div class="form-group">
                         <label>ブランド名（和）</label>
-                        <input type="text" class="form-control" name="name" style="width:30%;" value={{ brand.name }}>
+                        <input type="text" class="form-control" name="name" style="width:30%;" value={% if brand.name %}{{ brand.name }}{% endif %}>
                     </div>
                     <div class="form-group">
                         <label>ブランド名（英、URLスラグ用）</label>
-                        <input type="text" class="form-control" name="name-slug" style="width:30%;" value={{ brand.name_slug }}>
+                        <input type="text" class="form-control" name="name-slug" style="width:30%;" value={% if brand.name_slug %}{{ brand.name_slug }}{% endif %}>
                     </div>
                     <div class="form-group logo-image">
                         <label>ブランドロゴ (280 x 280 px)</label>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                         <label>ブランド紹介文</label>
-                        <input type="text" name="small-introduction" class="form-control" value={{ brand.small_introduction|spacify }}>
+                        <input type="text" name="small-introduction" class="form-control" value={% if brand.small_introduction %}{{ brand.small_introduction|spacify }}{% endif %}>
                     </div>
                     <div class="form-group">
                         <label>ブランド概要</label>
@@ -64,19 +64,19 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Facebook</label>
                             <div class="col-md-10">
-                                <input type="text" name="facebook-url" class="form-control" value={{ brand.facebook_url|spacify }}>
+                                <input type="text" name="facebook-url" class="form-control" value={% if brand.facebook_url %}{{ brand.facebook_url|spacify }}{% endif %}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Twitter</label>
                             <div class="col-md-10">
-                                <input type="text" name="twitter-url" class="form-control" value={{ brand.twitter_url|spacify }}>
+                                <input type="text" name="twitter-url" class="form-control" value={% if brand.twitter_url %}{{ brand.twitter_url|spacify }}{% endif %}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Instagram</label>
                             <div class="col-md-10">
-                                <input type="text" name="instagram-url" class="form-control" value={{ brand.instagram_url|spacify }}>
+                                <input type="text" name="instagram-url" class="form-control" value={% if brand.instagram_url %}{{ brand.instagram_url|spacify }}{% endif %}>
                             </div>
                         </div>
                     </div>
@@ -91,25 +91,25 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">会社名</label>
                             <div class="col-md-10">
-                                <input type="text" name="company-name" class="form-control" value={{ brand.company_name|spacify }}>
+                                <input type="text" name="company-name" class="form-control" value={% if brand.company_name %}{{ brand.company_name|spacify }}{% endif %}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">代表者</label>
                             <div class="col-md-10">
-                                <input type="text" name="company-representative" class="form-control" value={{ brand.company_representative|spacify }}>
+                                <input type="text" name="company-representative" class="form-control" value={% if brand.company_representative %}{{ brand.company_representative|spacify }}{% endif %}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">住所</label>
                             <div class="col-md-10">
-                                <input type="text" name="company-address" class="form-control" value={{ brand.company_address|spacify }}>
+                                <input type="text" name="company-address" class="form-control" value={% if brand.company_address %}{{ brand.company_address|spacify }}{% endif %}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">公式HP</label>
                             <div class="col-md-10">
-                                <input type="text" name="company-website" class="form-control" value={{ brand.company_website|spacify }}>
+                                <input type="text" name="company-website" class="form-control" value={% if brand.company_website %}{{ brand.company_website|spacify }}{% endif %}>
                             </div>
                         </div>
                         <div class="form-group">
