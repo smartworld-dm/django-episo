@@ -68,7 +68,7 @@ def update_article(request, id):
 	cover_image = request.FILES.get('cover-image', None)
 
 	if cover_image:
-		save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
+		save_path = os.path.join(settings.MEDIA_ROOT, '', cover_image.name)
 		path = default_storage.save(save_path, cover_image)
 		cover_image = cover_image.name
 	else:
@@ -115,7 +115,7 @@ def save_article(request):
 	cover_image = request.FILES.get('cover-image', None)
 
 	if cover_image:
-		save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
+		save_path = os.path.join(settings.MEDIA_ROOT, '', cover_image.name)
 		path = default_storage.save(save_path, cover_image)
 		cover_image = cover_image.name
 	
@@ -125,6 +125,7 @@ def save_article(request):
 	region = request.POST.get('region', None)
 	category = request.POST.get('category', None)
 	creation_date = request.POST.get('creation_date', datetime.now().replace(microsecond=0))
+	if creation_date == '': creation_date = datetime.now().replace(microsecond=0)
 	content = request.POST.get('content', None)
 	free_link_1_anchor = request.POST.get('free-link-1-anchor', None)
 	free_link_1_url = request.POST.get('free-link-1-url', None)
@@ -159,7 +160,7 @@ def save_article(request):
 @login_required(login_url='/brand-admin')
 def file_upload(request):
 	file = request.FILES['image']
-	save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', file.name)
+	save_path = os.path.join(settings.MEDIA_ROOT, '', file.name)
 	path = default_storage.save(save_path, file)
 	return JsonResponse({"path": file.name})
 
@@ -179,14 +180,14 @@ def profile(request):
 		logo_image = request.FILES.get('logo-image', None)
 
 		if cover_image:
-			save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
+			save_path = os.path.join(settings.MEDIA_ROOT, '', cover_image.name)
 			path = default_storage.save(save_path, cover_image)
 			cover_image = cover_image.name
 		else:
 			cover_image = brand.cover_image
 
 		if logo_image:
-			save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', logo_image.name)
+			save_path = os.path.join(settings.MEDIA_ROOT, '', logo_image.name)
 			path = default_storage.save(save_path, logo_image)
 			logo_image = logo_image.name
 		else:

@@ -34,7 +34,7 @@
                         <label>キャプチャー画像 (1200 x 675 px)</label>
                         <input type="file" name="cover-image">
                         {% if article.cover_image %}
-                            <img src='/media/uploads/{{ article.cover_image }}' alt="empty-image" style="width: 300px" />
+                            <img src='/media/{{ article.cover_image }}' alt="empty-image" style="width: 300px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="empty-image" style="width: 300px" />
                         {% endif %}
@@ -235,7 +235,7 @@
                 processData: false, // Don't process the files
                 contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                 success: function(data, textStatus, jqXHR) {
-                    editor.insertContent('<img class="content-img" src="/media/uploads/' + data.path + '"/>');
+                    editor.insertContent('<img class="content-img" src="/media/' + data.path + '"/>');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.responseText) {

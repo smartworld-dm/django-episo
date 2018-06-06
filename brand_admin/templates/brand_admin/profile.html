@@ -37,7 +37,7 @@
                         <label>ブランドロゴ (280 x 280 px)</label>
                         <input type="file" name="logo-image">
                         {% if brand.logo_image %}
-                            <img src='/media/uploads/{{brand.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
+                            <img src='/media/{{brand.logo_image}}' alt="preview of brand logo" class="preview-image" style="width: 140px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="preview of brand logo" class="preview-image" style="width: 140px" />
                         {% endif %}
@@ -46,7 +46,7 @@
                         <label>ブランドイメージ (912 x 500 px)</label>
                         <input type="file" name="cover-image">
                         {% if brand.cover_image %}
-                            <img src='/media/uploads/{{brand.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
+                            <img src='/media/{{brand.cover_image}}' alt="preview of brand cover" class="preview-image" style="width: 300px" />
                         {% else %}
                             <img src="{% static 'images/empty-image.png' %}" alt="preview of brand cover" class="preview-image" style="width: 300px" />
                         {% endif %}
@@ -267,7 +267,7 @@
                 processData: false, // Don't process the files
                 contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                 success: function(data, textStatus, jqXHR) {
-                    editor.insertContent('<img class="content-img" src="/media/uploads/' + data.path + '"/>');
+                    editor.insertContent('<img class="content-img" src="/media/' + data.path + '"/>');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.responseText) {

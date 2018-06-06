@@ -9,7 +9,7 @@ class Article(models.Model):
     title               = models.CharField(default="", max_length=200, null=True, blank=True)
     brand               = models.ForeignKey(Brand, on_delete=models.CASCADE, default=0)
     is_featured         = models.BooleanField(default=False)
-    cover_image         = models.FileField(upload_to='uploads/', null=True, blank=True)
+    cover_image         = models.FileField(upload_to='', null=True, blank=True)
     member_name         = models.CharField(default="", max_length=200, null=True, blank=True)
     member_title        = models.CharField(default="", max_length=200, null=True, blank=True)
     attribute           = models.CharField(default="", max_length=200, null=True, blank=True)
