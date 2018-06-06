@@ -30,7 +30,7 @@
                 <div class="espisoze-list__tile tile">
 
                     {% for article in articles %}
-                        <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
+                        <a href="{% url 'show' article.id %}" class="episode-list__item tile__item">
                             <figure class="episode-list__figure">
                                 <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                                 <figcaption class="episode-list__figure_desc">

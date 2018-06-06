@@ -8,7 +8,7 @@
             <div class="nav__mobile-toggle_icon"></div>
         </div>
 
-        <a class="header__logo" href="/">
+        <a class="header__logo" href="{% url 'landing' %}">
             <img class="header__logo-view" src={% static 'imgs/common/logo.svg' %}/>
         </a>
 
@@ -19,21 +19,21 @@
                 <ul class="nav">
                     <li class="nav__item nav__item_mobile-only"><a class="nav__item_link" href="/">トップ</a>
                     </li>
-                    <li class="nav__item {% if request.path == '/episodes/' %} current-menu-item {% endif %}"><a class="nav__item_link" href="/episodes">エピソード一覧</a>
+                    <li class="nav__item {% if request.path == '/episodes/' %} current-menu-item {% endif %}"><a class="nav__item_link" href="{% url 'index' %}">エピソード一覧</a>
                     </li>
-                    <li class="nav__item {% if request.path == '/brands/' %} current-menu-item {% endif %}""><a class="nav__item_link" href={% url 'index_brand' %}>ブランド一覧</a></li>
-                    <li class="nav__item"><a class="nav__item_link" href="/">What’s Episoze?</a></li>
+                    <li class="nav__item {% if request.path == '/brands/' %}" current-menu-item {% endif %}""><a class="nav__item_link" href={% url 'index_brand' %}>ブランド一覧</a></li>
+                    <li class="nav__item"><a class="nav__item_link" href="{% url 'landing' %}">What’s Episoze?</a></li>
                     <li class="nav__item {% if request.path == '/contact/' %} current-menu-item {% endif %} nav__item_mobile-only"><a class="nav__item_link"
-                                                                   href="/contact">お問い合わせ</a></li>
-                    <li class="nav__item {% if request.path == '/terms/' %} current-menu-item {% endif %} nav__item_mobile-only"><a class="nav__item_link" href="/terms">利用規約</a>
+                                                                   href="{% url 'contact' %}">お問い合わせ</a></li>
+                    <li class="nav__item {% if request.path == '/terms/' %} current-menu-item {% endif %} nav__item_mobile-only"><a class="nav__item_link" href="{% url 'terms' %}">利用規約</a>
                     </li>
-                    <li class="nav__item {% if request.path == '/privacy/' %} current-menu-item {% endif %} nav__item_mobile-only"><a class="nav__item_link" href="/privacy">プライバシーポリシー</a>
+                    <li class="nav__item {% if request.path == '/privacy/' %} current-menu-item {% endif %} nav__item_mobile-only"><a class="nav__item_link" href="{% url 'privacy' %}">プライバシーポリシー</a>
                     </li>
                 </ul>
 
             </nav>
 
-            <a href="/search" class="header__search-button {% if request.path == '/search/' %} current-menu-item {% endif %}"></a>
+            <a href="{% url 'search' %}" class="header__search-button {% if request.path == '/search/' %} current-menu-item {% endif %}"></a>
 
         </div>
 

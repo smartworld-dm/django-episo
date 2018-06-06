@@ -19,7 +19,11 @@
             </div>
 
             <div class="row">
-                <form role="form" action="/brand-admin/save_article/{{ article.id }}/" method="post" enctype="multipart/form-data">
+            {% if article.id %}
+                <form role="form" action="{% url 'update_article' article.id %}" method="post" enctype="multipart/form-data">
+            {% else %}
+                <form role="form" action="{% url 'save_article' %}" method="post" enctype="multipart/form-data">
+            {% endif %}
                 	{% csrf_token %}
 
                     <div class="form-group">
@@ -130,9 +134,7 @@
         $("select[name=category] option[value='" + initial + "']").attr("selected","selected");
 
         var init_datetime = $('.datetime-div').attr('date') + ' ' + $('.datetime-div').attr('time');
-        if ($('.datetime-div').attr('date') == 'time=')
-            $('.datetime-div input').val('');    
-        else
+        if ($('.datetime-div').attr('date') != 'time=')
             $('.datetime-div input').val(init_datetime);
 
         var free_links_str = "{{ article.free_links }}";

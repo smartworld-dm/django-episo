@@ -20,7 +20,7 @@
                 <div class="espisoze-list__tile tile">
 
                     {% for article in articles %}
-                        <a href="/articles/{{ article.id }}/" class="episode-list__item tile__item">
+                        <a href="{% url 'show' article.id %}" class="episode-list__item tile__item">
                             <figure class="episode-list__figure">
                                 <img src="/media/uploads/{{ article.cover_image }}" alt="" class="episode-list__view" style="width: 100%;">
                                 <figcaption class="episode-list__figure_desc">
@@ -42,17 +42,17 @@
 
                 <div class="pagination episode-list__pagination">
                     {% if articles.has_previous %}
-                        <a href="?page={{ articles.previous_page_number }}" class="pagination__arrow_left"></a>
+                        <a href="{% url 'index' %}?page={{ articles.previous_page_number }}" class="pagination__arrow_left"></a>
                     {% else %}
                         <a class="pagination__arrow_left inactive"></a>
                     {% endif %}
 
                     {% for i in page_cnt %}
-                        <a href="/episodes/?page={{i|add:1}}" class="pagination__link {% if articles.number == i|add:1 %} pagination__current {% endif %}">{{ i|add:1 }}</a>
+                        <a href="{% url 'index' %}?page={{i|add:1}}" class="pagination__link {% if articles.number == i|add:1 %} pagination__current {% endif %}">{{ i|add:1 }}</a>
                     {% endfor %}
                    
                     {% if articles.has_next %}
-                        <a href="?page={{ articles.next_page_number }}" class="pagination__arrow_right"></a>
+                        <a href="{% url 'index' %}?page={{ articles.next_page_number }}" class="pagination__arrow_right"></a>
                     {% else %}
                         <a class="pagination__arrow_right inactive"></a>
                     {% endif %}

@@ -20,7 +20,7 @@
 		    </div>
 
 		    <div class="row text-center">
-		        <a href="/brand-admin/creation" class="btn btn-primary waves-effect btn-lg w-lg waves-light">
+		        <a href="{% url 'new_article' %}" class="btn btn-primary waves-effect btn-lg w-lg waves-light">
 		            <i class="fa fa-plus"></i>　記事を投稿する
 		        </a>
 		    </div>
@@ -37,7 +37,7 @@
                     <tbody>
                     	{% for article in articles %}
 	                    	<tr>
-	                            <td><a href="/brand-admin/creation/{{ article.id }}/" class="l-h-40">{{ article.title }}</a></td>
+	                            <td><a href="{% url 'edit_article' article.id %}" class="l-h-40">{{ article.title }}</a></td>
 	                            <td>
                             		{% if article.is_published %}
                             			<button class="btn btn-default waves-effect w-md m-t-3 dispublish" article_id={{ article.id }} value="">非公開にする</button>

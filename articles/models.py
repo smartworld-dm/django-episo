@@ -18,4 +18,4 @@ class Article(models.Model):
     content             = models.TextField(default="", null=True, blank=True)
     is_published        = models.BooleanField(default=False)
     free_links          = JSONField("free_links", default=[], null=True, blank=True)
-    creation_date       = models.DateTimeField(default=datetime.now)
+    creation_date       = models.DateTimeField(default=datetime.now, null=True, blank=True)

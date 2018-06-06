@@ -22,7 +22,7 @@
             </div>
 
             <div class="row">
-            	<form role="form" action="/brand-admin/profile/" method="post" enctype="multipart/form-data">
+            	<form role="form" action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
             		{% csrf_token %}
 
                     <div class="form-group">

@@ -9,8 +9,8 @@
         </div>
 
         <nav class="footer__nav">
-            <a href="/terms" class="footer__link">利用規約</a>
-            <a href="/privacy" class="footer__link">プライバシーポリシー</a>
+            <a href="{% url 'terms' %}" class="footer__link">利用規約</a>
+            <a href="{% url 'privacy' %}" class="footer__link">プライバシーポリシー</a>
         </nav>
 
         <address class="footer__address">
@@ -19,7 +19,7 @@
             <p class="footer__address_desc">※取材のご依頼等もお待ちしております。</p>
         </address>
 
-        <a href="/" class="footer__logo">
+        <a href="{% url 'landing' %}" class="footer__logo">
             <img src={% static 'imgs/common/logo.svg' %} alt="" class="footer__logo_view">
         </a>
 

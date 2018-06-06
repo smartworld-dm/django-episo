@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.conf import settings
 from django.db.models import Q
+from datetime import datetime
 import logging
 import os
 import html
@@ -78,7 +79,7 @@ def update_article(request, id):
 	attribute = request.POST.get('attribute', None)
 	region = request.POST.get('region', None)
 	category = request.POST.get('category', None)
-	creation_date = request.POST.get('creation_date', None)
+	creation_date = request.POST.get('creation_date', datetime.now)
 	content = request.POST.get('content', None)
 	free_link_1_anchor = request.POST.get('free-link-1-anchor', None)
 	free_link_1_url = request.POST.get('free-link-1-url', None)
@@ -123,7 +124,7 @@ def save_article(request):
 	attribute = request.POST.get('attribute', None)
 	region = request.POST.get('region', None)
 	category = request.POST.get('category', None)
-	creation_date = request.POST.get('creation_date', None)
+	creation_date = request.POST.get('creation_date', datetime.now().replace(microsecond=0))
 	content = request.POST.get('content', None)
 	free_link_1_anchor = request.POST.get('free-link-1-anchor', None)
 	free_link_1_url = request.POST.get('free-link-1-url', None)

@@ -20,7 +20,7 @@
 	            <div class="brand-list__tile tile">
 
 	            	{% for brand in brands %}
-		                <a href="/brands/{{ brand.name_slug|slugify }}/" class="brand-list__item tile__item">
+		                <a href="{% url 'show_brand' brand.name_slug|slugify %}" class="brand-list__item tile__item">
 		                    <figure class="brand-list__figure">
 		                        <img src="/media/uploads/{{ brand.logo_image }}" alt="" class="brand-list__view">
 		                    </figure>
@@ -35,17 +35,17 @@
 
 	            <div class="pagination episode-list__pagination">
                     {% if brands.has_previous %}
-                        <a href="?page={{ brands.previous_page_number }}" class="pagination__arrow_left"></a>
+                        <a href="{% url 'index_brand' %}?page={{ brands.previous_page_number }}" class="pagination__arrow_left"></a>
                     {% else %}
                         <a class="pagination__arrow_left inactive"></a>
                     {% endif %}
 
                     {% for i in page_cnt %}
-                        <a href="/brands/?page={{i|add:1}}" class="pagination__link {% if brands.number == i|add:1 %} pagination__current {% endif %}">{{ i|add:1 }}</a>
+                        <a href="{% url 'index_brand' %}?page={{i|add:1}}" class="pagination__link {% if brands.number == i|add:1 %} pagination__current {% endif %}">{{ i|add:1 }}</a>
                     {% endfor %}
                    
                     {% if brands.has_next %}
-                        <a href="?page={{ brands.next_page_number }}" class="pagination__arrow_right"></a>
+                        <a href="{% url 'index_brand' %}?page={{ brands.next_page_number }}" class="pagination__arrow_right"></a>
                     {% else %}
                         <a class="pagination__arrow_right inactive"></a>
                     {% endif %}
