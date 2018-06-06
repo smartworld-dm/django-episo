@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary waves-effect btn-lg w-lg waves-light ">記事を投稿する</button>
+                        <button type="submit" class="btn btn-primary waves-effect btn-lg w-lg waves-light ">{% if article.id %} Edit {% else %} 記事を投稿する {% endif %}</button>
                     </div>
                 </form>
             </div>

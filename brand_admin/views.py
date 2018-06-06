@@ -62,6 +62,7 @@ def edit_article(request, id):
 
 @login_required(login_url='/brand-admin')
 def update_article(request, id):
+	current_article = Article.objects.get(pk=id)
 	title = request.POST.get('title', None)
 	cover_image = request.FILES.get('cover-image', None)
 
@@ -70,7 +71,6 @@ def update_article(request, id):
 		path = default_storage.save(save_path, cover_image)
 		cover_image = cover_image.name
 	else:
-		current_article = Article.objects.get(pk=id)
 		cover_image = current_article.cover_image
 	
 	member_name = request.POST.get('member-name', None)
@@ -94,21 +94,18 @@ def update_article(request, id):
 	user = request.user
 	brand = Brand.objects.filter(user=user).first()
 
-	article = Article(
-		id=id,
-		title=title, 
-		brand=brand,
-		cover_image=cover_image,
-		member_name=member_name,
-		member_title=member_title,
-		attribute=attribute,
-		region=region,
-		category=category,
-		creation_date=creation_date,
-		content=content,
-		free_links=free_links
-		)
-	article.save()
+	current_article.title = title
+	current_article.brand = brand
+	current_article.cover_image = cover_image
+	current_article.member_name = member_name
+	current_article.member_title = member_title
+	current_article.attribute = attribute
+	current_article.region = region
+	current_article.category = category
+	current_article.creation_date = creation_date
+	current_article.content = content
+	current_article.free_links = free_links
+	current_article.save()
 	return redirect('brand_admin_dashboard')
 
 @login_required(login_url='/brand-admin')
@@ -117,7 +114,6 @@ def save_article(request):
 	cover_image = request.FILES.get('cover-image', None)
 
 	if cover_image:
-		# Upload file
 		save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', cover_image.name)
 		path = default_storage.save(save_path, cover_image)
 		cover_image = cover_image.name
